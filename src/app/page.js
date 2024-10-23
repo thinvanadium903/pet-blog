@@ -1,12 +1,16 @@
 'use client'
 
-import Header from "./components/Header"
+import Header from './components/Header';
+import Body from './components/Body';
+import './stylesheets/Wrapper.css'
 
-export default function App() {
+function App() {
   return (
-    <div>
+    <div id='wrapper'>
       <Header></Header>
-      <h1>Hello world</h1>
+      <Body></Body>
     </div>
-  )
+  );
 }
+
+export default App;
