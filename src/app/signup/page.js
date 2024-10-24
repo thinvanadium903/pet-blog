@@ -1,29 +1,29 @@
 'use client'
 
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import Header from "../components/Header";
 
-export default function Login() {
+export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       // Redirect or show success message
     } catch (error) {
-      console.error("Error logging in:", error);
+      console.error("Error signing up:", error);
     }
   };
 
   return (
     <div>
       <Header />
-      <h1>Log In</h1>
-      <form onSubmit={handleLogin}>
+      <h1>Sign Up</h1>
+      <form onSubmit={handleSignUp}>
         <input
           type="email"
           value={email}
@@ -36,7 +36,7 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <button type="submit">Log In</button>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   );

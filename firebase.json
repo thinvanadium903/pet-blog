@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "site": "uga-pet-blog-3deb8",
+    "public": "out",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

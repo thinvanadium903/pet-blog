@@ -12,7 +12,7 @@ function Header() {
                     <p><Link href='/'>Where My Dawgs At?</Link></p>
                 </div>
                 <div id="login"><Link href='/login'>Log In</Link></div>
-                
+                <div id="signup"><Link href='/signup'>Sign Up</Link></div>
             </div>
         </div>
     );    

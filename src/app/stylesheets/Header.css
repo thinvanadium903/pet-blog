@@ -18,7 +18,7 @@
     max-width: 100%;
 }
 
-#login, #about {
+#login, #about, #signup {
     width: fit-content;
     height: fit-content;
     padding: 15px 15px;
@@ -32,7 +32,7 @@
     background-color: #2cc6d7;
 }
 
-#login {
+#login, #signup {
     background-color: #ffffff;
 }
 
@@ -51,7 +51,7 @@
     text-align: center;
 }
 
-#about:hover, #login:hover {
+#about:hover, #login:hover, #signup:hover {
     transform: scale(1.1);
 }
 
