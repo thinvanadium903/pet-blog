@@ -4,16 +4,18 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import Header from "../components/Header";
+import { useRouter } from "next/navigation"; // Corrected import
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter(); // Initialize router
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // Redirect or show success message
+      router.push("/dashboard"); // Redirect to dashboard
     } catch (error) {
       console.error("Error logging in:", error);
     }

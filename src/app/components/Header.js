@@ -13,6 +13,7 @@ function Header() {
                 </div>
                 <div id="login"><Link href='/login'>Log In</Link></div>
                 <div id="signup"><Link href='/signup'>Sign Up</Link></div>
+                <div id="dashboard"><Link href='/dashboard'>Dashboard</Link></div>
             </div>
         </div>
     );    
