@@ -1,10 +1,11 @@
-'use client'
+"use client";
 
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import Header from "../components/Header";
 import { useRouter } from "next/navigation"; // Corrected import
+import "./Login.css"; // Import the new CSS file
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -24,22 +25,26 @@ export default function Login() {
   return (
     <div>
       <Header />
-      <h1>Log In</h1>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <button type="submit">Log In</button>
-      </form>
+      <div className="login-container">
+        <h1>Log In</h1>
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+          <button type="submit">Log In</button>
+        </form>
+      </div>
     </div>
   );
 }

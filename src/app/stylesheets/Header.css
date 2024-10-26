@@ -18,9 +18,11 @@
     max-width: 100%;
 }
 
-#login, #about, #signup {
-    width: fit-content;
-    height: fit-content;
+#about, #title, #auth-buttons div, #dashboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; /* Change cursor to pointer */
     padding: 15px 15px;
     border-radius: 10px;
     transition: transform .25s;
@@ -32,7 +34,12 @@
     background-color: #2cc6d7;
 }
 
-#login, #signup {
+#auth-buttons {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+#auth-buttons div {
     background-color: #ffffff;
 }
 
@@ -51,7 +58,7 @@
     text-align: center;
 }
 
-#about:hover, #login:hover, #signup:hover {
+#about:hover, #auth-buttons div:hover {
     transform: scale(1.1);
 }
 
