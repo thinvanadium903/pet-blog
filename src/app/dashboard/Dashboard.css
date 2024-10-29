@@ -1,0 +1,101 @@
+/* Dashboard.css */
+
+/* Center the dashboard content for logged-in users */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: #ffffff;
+  }
+  
+  /* Centered content for unauthenticated users */
+  .centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+    /* min-height: calc(100vh - 80px); */
+  }
+  
+  /* Message box styling for the "Please log in first" message */
+  .message-box {
+    background-color: #2e2e2e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  /* Style for the "Log In" and "Sign Up" buttons */
+  .button-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+  }
+  
+  .auth-button {
+    padding: 10px 20px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  .auth-button:hover {
+    background-color: #666;
+  }
+  
+  /* Styles for logged-in user dashboard elements */
+  .dashboard-header {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ee3332;
+  }
+  
+  .user-info-card {
+    background-color: #2e2e2e;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+  }
+  
+  .user-info-card p {
+    margin: 10px 0;
+    font-size: 1.1em;
+    color: #ffffff;
+  }
+  
+  .user-action-buttons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .user-action-buttons button {
+    padding: 10px 20px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  .user-action-buttons button:hover {
+    background-color: #666;
+  }
+  
