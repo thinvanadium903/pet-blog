@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Link from "next/link";
 import './Dashboard.css'; // Import the new CSS file
+import CreatePost from "../create-post/page";
 
 export default function Dashboard() {
   const { currentUser, loading, logout } = useAuth();
