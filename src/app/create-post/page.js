@@ -3,8 +3,11 @@
 import { useState } from "react";
 import "./create-post.css";
 import Header from "../components/Header";
+import { useRouter } from "next/navigation";
 
 export default function CreatePost() {
+    const router = useRouter();
+
     const [petName, setPetName] = useState('');
     const [description, setDescription] = useState('');
     const [photo, setPhoto] = useState(null);
@@ -41,6 +44,10 @@ export default function CreatePost() {
 
         setIsSubmitted(true);
     };
+    
+    const redirect = () => {
+        router.push('/');
+    }
 
     const handleEdit = () => {
         setIsSubmitted(false); // Allow the user to go back and edit
@@ -63,7 +70,7 @@ export default function CreatePost() {
                             <div className="image-upload">
                                 <label htmlFor="photo">Add Photo:</label>
                                 <input type="file" id="photo" accept="image/*" onChange={handleFileChange} />
-                                {preview && <img src={preview} alt="Preview" style={{ width: '100px', height: '100px' }} />}
+                                {preview && <img src={preview} alt="Preview" style={{width: 'auto', height: '300px'}} />}
                             </div>
                             <div className="pet-name">
                                 <label htmlFor="petName">Pet name: </label>
@@ -90,9 +97,11 @@ export default function CreatePost() {
                         </form>
                     ) : (
                         <div className="output-card">
-                            {preview && <img src={preview} alt="Pet" style={{ width: '150px', height: '150px' }} />}
+                            <h3 className="confirmation-text">Post saved successfully!</h3>
+                            {preview && <img src={preview} alt="Pet" style={{ width: 'auto', height: '300px' }} />}
                             <h3>{petName}</h3>
                             <p>{description}</p>
+                            <button onClick={redirect}>Return to Home</button>
                         </div>
                     )}
                 </div>
