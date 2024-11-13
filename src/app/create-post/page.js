@@ -70,7 +70,7 @@ export default function CreatePost() {
                             <div className="image-upload">
                                 <label htmlFor="photo">Add Photo:</label>
                                 <input type="file" id="photo" accept="image/*" onChange={handleFileChange} />
-                                {preview && <img src={preview} alt="Preview" style={{width: 'auto', height: '300px'}} />}
+                                {preview && <img src={preview} alt="Preview" style={{width: 'auto', maxHeight: '300px'}} />}
                             </div>
                             <div className="pet-name">
                                 <label htmlFor="petName">Pet name: </label>
@@ -98,7 +98,9 @@ export default function CreatePost() {
                     ) : (
                         <div className="output-card">
                             <h3 className="confirmation-text">Post saved successfully!</h3>
-                            {preview && <img src={preview} alt="Pet" style={{ width: 'auto', height: '300px' }} />}
+                            <div className="image-upload">
+                                {preview && <img src={preview} alt="Pet" style={{ width: 'auto', maxHeight: '300px' }} />}
+                            </div>
                             <h3>{petName}</h3>
                             <p>{description}</p>
                             <button onClick={redirect}>Return to Home</button>
