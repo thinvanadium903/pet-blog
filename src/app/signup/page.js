@@ -29,9 +29,33 @@ export default function SignUp() {
 
       router.push("/dashboard"); // Redirect to dashboard
     } catch (error) {
-      console.error("Error signing up:", error);
+      console.log(error);
+      alert("Error signing up: " + error.message);
     }
   };
+
+  // email is a valid entry
+  const validEmail = () => {
+    if (email.includes(" ")) return false; // there are spaces in the email
+
+    const parts = email.split("@");
+    if (parts.length != 2) return false; // there is not exactly one @
+
+    // check part before @
+    if (parts[0].length == 0) return false; // there is nothing before the @
+
+    // check part after @
+    if (parts[1].indexOf('.') < 1) return false; // either there is no . or it is directly after the @
+    if (parts[1].charAt(parts[1].length - 1) == '.') return false; // the last character is a .
+
+    return true;
+  }  
+
+  // name is non-empty
+  const validName = () => name.length > 0;
+
+  // password is at least 6 characters
+  const validPassword = () => password.length >= 6;
 
   return (
     <div>
@@ -60,9 +84,16 @@ export default function SignUp() {
             placeholder="Password"
             required
           />
-          <button type="submit">Sign Up</button>
+          <div className="warnings">
+            {validName() ? <p className="valid-entry"><s>Name must be non-empty</s></p> : <p className="invalid-entry">Name must be non-empty</p>}
+            {validEmail() ? <p className="valid-entry"><s>Must use a valid email</s></p> : <p className="invalid-entry">Must use a valid email</p>}
+            {validPassword() ? <p className="valid-entry"><s>Password must be at least 6 characters</s></p> : <p className="invalid-entry">Password must be at least 6 characters</p>}
+          </div>
+          <button type="submit" disabled={validName() && validEmail() && validPassword() ? false : true}>Sign Up</button>
         </form>
       </div>
     </div>
   );
 }
+
+
