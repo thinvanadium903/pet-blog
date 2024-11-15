@@ -8,6 +8,8 @@
 
 .image {
     background-size: cover;
+    background-position-x: center;
+    background-position-y: 30%;
     justify-self: center;
     align-self: center;
     height: 25vh;
