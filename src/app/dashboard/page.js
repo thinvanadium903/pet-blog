@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Link from "next/link";
 import './Dashboard.css'; // Import the new CSS file
-import CreatePost from "../create-post/page";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 
@@ -41,6 +40,7 @@ export default function Dashboard() {
             id: doc.id,
             ...doc.data()
           }));
+          posts.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
           setUserPosts(posts);
         } catch (error) {
           console.error("Error fetching posts:", error);
@@ -109,24 +109,28 @@ const handleLogout = async () => {
           {/* TODO: Add settings page (not implemented yet) */}
           {/* <button className="dashboard-button">Settings</button> */}
 
-          <button className="dashboard-button" onClick={handleLogout}>Logout</button>
+                <button className="dashboard-button" onClick={handleLogout}>Logout</button>
+            </div>
+            <div className="user-posts">
+                <h2>Your Posts</h2>
+                <br/>
+                {userPosts.length > 0 ? (
+                    userPosts.map(post => (
+                        <div key={post.id} className="post-card">
+                            <img src={post.photoURL} alt={post.petName} className="post-image"/>
+                            <div className="post-content">
+                                <h3>{post.petName}</h3>
+                                <p className="post-description">{post.description}</p>
+                                <p className="post-date">Created
+                                    on: {new Date(post.createdAt.seconds * 1000).toLocaleDateString()}</p>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No posts yet.</p>
+                )}
+            </div>
         </div>
-        <div className="user-posts">
-          <h2>Your Posts</h2>
-          <br />
-          {userPosts.length > 0 ? (
-            userPosts.map(post => (
-              <div key={post.id} className="post-card">
-                <h3>{post.petName}</h3>
-                <p>{post.description}</p>
-                <img src={post.photoURL} alt={post.petName} style={{ width: '100px', height: '100px' }} />
-              </div>
-            ))
-          ) : (
-            <p>No posts yet.</p>
-          )}
-        </div>
-      </div>
     </div>
   );
 }

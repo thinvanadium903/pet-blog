@@ -98,41 +98,61 @@
   .user-action-buttons button:hover {
     background-color: #666;
   }
-  
-  /* Styles for user posts */
-  .user-posts {
+
+/* Improved styles for user posts */
+.user-posts {
     width: 100%;
     max-width: 800px;
     margin-top: 20px;
     margin-bottom: 20px;
-  }
-  
-  .post-card {
-    background-color: #333;
+}
+
+.post-card {
+    background-color: #1e1e1e;
     padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
-    gap: 15px;
-  }
-  
-  .post-card img {
-    border-radius: 8px;
-    width: 100px;
-    height: 100px;
+    gap: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.post-image {
+    border-radius: 12px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
-  }
-  
-  .post-card h3 {
+    flex-shrink: 0;
+}
+
+.post-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post-content h3 {
     margin: 0;
-    font-size: 1.2em;
-    color: #ee3332;
-  }
-  
-  .post-card p {
-    margin: 5px 0;
-    color: #ccc;
-  }
-  
+    font-size: 1.5em;
+    color: #ff6347;
+}
+
+.post-description {
+    margin: 0;
+    font-size: 1em;
+    color: #dcdcdc;
+    line-height: 1.5;
+}
+
+.post-date {
+    margin: 0;
+    font-size: 0.9em;
+    color: #aaa;
+}
