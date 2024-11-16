@@ -104,7 +104,9 @@
 .petName {
     font-size: 1.4rem;
     font-weight: bold;
-    color: #ff4d4d; /* Match the theme */
+    color: #000000; /* Match the theme */
+    text-decoration: underline;
+    text-underline-offset: 3px; /* Add spacing between text and underline */
 }
 
 .description {
