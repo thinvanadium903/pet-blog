@@ -10,36 +10,192 @@
     justify-content: center;
     align-items: center;
     flex-direction: column; /* Stack content vertically */
-    height: 100vh; /* Full viewport height */
-    background: #121212; /* Dark background for contrast */
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
+.centeredContent h1 {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
 .createPostContainer {
     text-align: center;
-    background-color: #ff4d4d; /* Red background similar to the header */
+    background-color: #ff4d4d;
     padding: 2rem;
     border-radius: 12px;
     width: 90%;
     max-width: 600px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     animation: fadeIn 0.5s ease-in-out;
+    margin: auto;
 }
 
-.createPostContainer h1 {
-    font-size: 1.8rem;
-    color: #fff;
-    margin-bottom: 1rem;
-}
-
-.centeredContent h1 {
-    font-size: 1.7rem;
-    color: #fff;
+.imageUpload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 1.5rem;
-    margin-top: 2rem;
+    border: 2px dashed #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    cursor: pointer; /* Show pointer cursor */
+}
+
+.imageUpload:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #ddd;
+}
+
+.dragBox {
+    color: #fff;
+    font-size: 14px;
     text-align: center;
+    padding: 10px;
+    pointer-events: none; /* Ensure content inside label doesn't interfere */
+}
+
+.outputCard {
+    text-align: center;
+    background-color: #ffffff; /* Change to white for a clean contrast */
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    margin: auto;
+    animation: fadeIn 0.5s ease-in-out;
+    color: #333; /* Dark text for better readability */
+}
+
+.confirmationTitle {
+    font-size: 1.8rem;
+    color: #4caf50; /* Success green color */
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.imagePreviewContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.previewImage {
+    width: 100%;
+    max-width: 300px; /* Keep it manageable */
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.postDetails {
+    margin-bottom: 1.5rem;
+}
+
+.petName {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ff4d4d; /* Match the theme */
+}
+
+.description {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+.returnButton {
+    padding: 10px 20px;
+    background-color: #393939;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.returnButton:hover {
+    background-color: #555;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+.fieldContainer {
+    margin-bottom: 1.5rem;
+    text-align: left;
+    width: 100%;
+}
+
+/* Styling for Pet Name input - No resizing */
+.fieldContainer input {
+    width: 100%; /* Full width of the container */
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    background-color: #fff; /* White background */
+    color: #000; /* Black text */
+}
+
+/* Styling for Description textarea */
+.fieldContainer textarea {
+    font-family: 'Roboto', sans-serif;
+    resize: both; /* Allow resizing both horizontally and vertically */
+    max-width: 100%; /* Prevent resizing beyond the parent container */
+    max-height: 200px; /* Set a maximum height for the textarea */
+    min-width: 100%; /* Prevent shrinking smaller than the container width */
+    min-height: 100px; /* Prevent shrinking smaller than the default height */
+    padding: 12px; /* Padding inside the textarea */
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #ccc; /* Border color */
+    box-sizing: border-box; /* Include padding and border in width/height */
+    font-size: 1rem;
+    background-color: #fff; /* White background */
+    color: #000; /* Black text */
+}
+
+
+.fieldContainer input:focus,
+.fieldContainer textarea:focus {
+    border-color: #ff4d4d; /* Highlight border on focus */
+    outline: none;
+    background-color: #fff; /* Keep background white on focus */
+}
+
+
+.submitButton {
+    padding: 12px 24px;
+    background-color: #393939;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin: 0 6px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .authButton {
@@ -63,15 +219,38 @@
     justify-content: center;
     /*gap: 5px;*/
     margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
+.submitButton:hover {
+    background-color: #555;
+}
+
+.disabledButton {
+    background-color: rgba(170, 170, 170, 0.57);
+    cursor: not-allowed;
+}
+
+.errorMessage {
+    color: #fff;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .createPostContainer {
+        padding: 1.5rem;
+        max-width: 90%;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    .fieldContainer input,
+    .fieldContainer textarea {
+        font-size: 0.9rem;
+    }
+
+    .submitButton {
+        font-size: 0.9rem;
+        padding: 8px 16px;
     }
 }
