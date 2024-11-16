@@ -16,8 +16,12 @@ function Submission({ name, imageUrl, description, userName, createdAt }) {
                     <h2>{name}</h2>
                 </div>
                 <p>{description}</p>
-                {userName && <i id='source'>Posted by {userName}</i>}
-                {createdAt && <p>Created on: {new Date(createdAt.seconds * 1000).toLocaleDateString()}</p>}
+                {userName && <i id='source'>Created by {userName}</i>}
+                {createdAt && (
+                    <p>
+                        Posted on: {new Date(createdAt.seconds * 1000).toLocaleDateString()} at {new Date(createdAt.seconds * 1000).toLocaleTimeString()}
+                    </p>
+                )}
             </div>
         </div>
     );

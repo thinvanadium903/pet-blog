@@ -121,8 +121,9 @@ const handleLogout = async () => {
                             <div className="post-content">
                                 <h3>{post.petName}</h3>
                                 <p className="post-description">{post.description}</p>
-                                <p className="post-date">Created
-                                    on: {new Date(post.createdAt.seconds * 1000).toLocaleDateString()}</p>
+                                <p className="post-date">
+                                    Posted on: {new Date(post.createdAt.seconds * 1000).toLocaleDateString()} at {new Date(post.createdAt.seconds * 1000).toLocaleTimeString()}
+                                </p>
                             </div>
                         </div>
                     ))
