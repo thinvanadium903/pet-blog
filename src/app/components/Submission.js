@@ -3,22 +3,21 @@
 import Link from 'next/link'
 import '../stylesheets/Submission.css'
 
-function Submission({ name, imageUrl, description, link, source }) {
+function Submission({ name, imageUrl, description, userName, createdAt }) {
     const divStyle = {
-        backgroundImage: `url(${imageUrl})`, // Set the background image
-      };
-    
+        backgroundImage: `url(${imageUrl})`,
+    };
+
     return (
         <div className="submission-whole">
-            <div className='image' style={divStyle}>
-
-            </div>
+            <div className='image' style={divStyle}></div>
             <div className="submission-preview">
                 <div className="submission-name">
-                        <Link href={link}><h2>{name}</h2></Link>
+                    <h2>{name}</h2>
                 </div>
-                    <p>{description}</p> 
-                    {source && source.length != 0 && <i id='source'>Posted by {source}</i>}
+                <p>{description}</p>
+                {userName && <i id='source'>Posted by {userName}</i>}
+                {createdAt && <p>Created on: {new Date(createdAt.seconds * 1000).toLocaleDateString()}</p>}
             </div>
         </div>
     );

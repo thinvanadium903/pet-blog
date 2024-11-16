@@ -9,11 +9,11 @@ function SubmissionGrid({ submissions }) {
             {submissions.map((submission, index) => (
                 <Submission
                     key={index}
-                    name={submission.name}
-                    imageUrl={submission.imageUrl}
+                    name={submission.petName}
+                    imageUrl={submission.photoURL}
                     description={submission.description}
-                    link={submission.link}
-                    source={submission.source}
+                    userName={submission.userName}
+                    createdAt={submission.createdAt}
                 />
             ))}
         </div>
