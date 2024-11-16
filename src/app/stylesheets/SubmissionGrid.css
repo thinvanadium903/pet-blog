@@ -30,8 +30,8 @@
         grid-template-columns: 1fr 1fr 1fr;
         justify-content: center;
         align-content: center;
-        column-gap: 2vw;
-        row-gap: 3vw;
+        column-gap: 2.5vw;
+        row-gap: 2vw;
         margin: 0px;
         max-width: 100%;
         max-height: 100%;
