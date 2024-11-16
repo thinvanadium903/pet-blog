@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import '../stylesheets/SubmissionGrid.css';
 import Submission from './Submission';
@@ -9,6 +9,7 @@ function SubmissionGrid({ submissions }) {
             {submissions.map((submission, index) => (
                 <Submission
                     key={index}
+                    id={submission.id}
                     name={submission.petName}
                     imageUrl={submission.photoURL}
                     description={submission.description}
