@@ -4,8 +4,11 @@ import { useState } from "react";
 import "./create-post.css";
 import Header from "../components/Header";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../../context/AuthContext";
+import Link from "next/link";
 
 export default function CreatePost() {
+    const { currentUser, loading } = useAuth();
     const router = useRouter();
 
     const [petName, setPetName] = useState('');
@@ -53,6 +56,28 @@ export default function CreatePost() {
         setIsSubmitted(false); // Allow the user to go back and edit
     };
 
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (!currentUser) {
+        return (
+            <div>
+                <Header />
+                <div className="centered-content">
+                    <h1>Please log in or sign up to create a post</h1>
+                    <div className="button-container">
+                        <Link href="/login">
+                            <button className="auth-button">Log In</button>
+                        </Link>
+                        <Link href="/signup">
+                            <button className="auth-button">Sign Up</button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div>

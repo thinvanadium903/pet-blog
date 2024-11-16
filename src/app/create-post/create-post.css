@@ -118,3 +118,38 @@ button:hover {
 .confirmation-text {
     padding-bottom: 30px;
 }
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+.button-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.auth-button {
+    padding: 10px 20px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.auth-button:hover {
+    background-color: #666;
+}
