@@ -1,0 +1,77 @@
+.createTitle h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.fullScreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Stack content vertically */
+    height: 100vh; /* Full viewport height */
+    background: #121212; /* Dark background for contrast */
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.createPostContainer {
+    text-align: center;
+    background-color: #ff4d4d; /* Red background similar to the header */
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.createPostContainer h1 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.centeredContent h1 {
+    font-size: 1.7rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.authButton {
+    padding: 10px 20px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin: 0 6px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.authButton:hover {
+    background-color: #666;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    /*gap: 5px;*/
+    margin-top: 1rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

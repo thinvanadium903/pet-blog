@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase';
-import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc, query, orderBy } from 'firebase/firestore';
 import '../stylesheets/Body.css'
 import SubmissionGrid from "./SubmissionGrid";
 import Link from 'next/link';
@@ -12,7 +12,8 @@ function Body() {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const querySnapshot = await getDocs(collection(db, 'posts'));
+            const q = query(collection(db, 'posts'), orderBy('createdAt', 'asc'));
+            const querySnapshot = await getDocs(q);
             const posts = await Promise.all(querySnapshot.docs.map(async (postDoc) => {
                 const postData = postDoc.data();
                 const userDocRef = doc(db, 'users', postData.userId);
@@ -33,9 +34,12 @@ function Body() {
     return (
         <div className="body">
             <SubmissionGrid submissions={submissions}></SubmissionGrid>
-            <Link href="/create-post">
-                <button className="create-post-button">+</button>
-            </Link>
+            <div className="create-post-container">
+                <Link href="/create-post">
+                    <p className="create-post-text">Create New Post</p>
+                    <button className="create-post-button">+</button>
+                </Link>
+            </div>
         </div>
     );
 }

@@ -19,7 +19,6 @@
     justify-content: center;
     text-align: center;
     color: #ffffff;
-    /* min-height: calc(100vh - 80px); */
   }
   
   /* Message box styling for the "Please log in first" message */
@@ -82,6 +81,7 @@
   .user-action-buttons {
     display: flex;
     gap: 15px;
+    margin-bottom: 20px;
   }
   
   .user-action-buttons button {
@@ -97,5 +97,42 @@
   
   .user-action-buttons button:hover {
     background-color: #666;
+  }
+  
+  /* Styles for user posts */
+  .user-posts {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .post-card {
+    background-color: #333;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .post-card img {
+    border-radius: 8px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .post-card h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #ee3332;
+  }
+  
+  .post-card p {
+    margin: 5px 0;
+    color: #ccc;
   }
   

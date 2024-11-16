@@ -7,11 +7,14 @@ import Header from "../components/Header";
 import Link from "next/link";
 import './Dashboard.css'; // Import the new CSS file
 import CreatePost from "../create-post/page";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../firebase";
 
 export default function Dashboard() {
   const { currentUser, loading, logout } = useAuth();
   const router = useRouter();
   const [isDelayed, setIsDelayed] = useState(true);
+  const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
     // Set a small delay before showing the content
@@ -27,6 +30,26 @@ export default function Dashboard() {
       // Do nothing, as we'll handle this with a message
     }
   }, [currentUser, loading, router, isDelayed]);
+
+  useEffect(() => {
+    const fetchUserPosts = async () => {
+      if (currentUser) {
+        try {
+          const q = query(collection(db, 'posts'), where('userId', '==', currentUser.uid));
+          const querySnapshot = await getDocs(q);
+          const posts = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setUserPosts(posts);
+        } catch (error) {
+          console.error("Error fetching posts:", error);
+        }
+      }
+    };
+
+    fetchUserPosts();
+  }, [currentUser]);
 
   if (loading || isDelayed) {
     return (
@@ -82,8 +105,26 @@ const handleLogout = async () => {
           <p><strong>Email:</strong> {currentUser.email || "No email available"}</p>
         </div>
         <div className="user-action-buttons">
-          <button className="dashboard-button">Settings</button> {/* TODO: Add settings page (not implemented yet) */}
+
+          {/* TODO: Add settings page (not implemented yet) */}
+          {/* <button className="dashboard-button">Settings</button> */}
+
           <button className="dashboard-button" onClick={handleLogout}>Logout</button>
+        </div>
+        <div className="user-posts">
+          <h2>Your Posts</h2>
+          <br />
+          {userPosts.length > 0 ? (
+            userPosts.map(post => (
+              <div key={post.id} className="post-card">
+                <h3>{post.petName}</h3>
+                <p>{post.description}</p>
+                <img src={post.photoURL} alt={post.petName} style={{ width: '100px', height: '100px' }} />
+              </div>
+            ))
+          ) : (
+            <p>No posts yet.</p>
+          )}
         </div>
       </div>
     </div>

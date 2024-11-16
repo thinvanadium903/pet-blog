@@ -10,10 +10,35 @@
     max-width: 100%;
 }
 
-.create-post-button {
+.create-post-container {
     position: fixed;
     bottom: 20px;
     right: 20px;
+    text-align: center;
+}
+
+.create-post-text {
+    margin-bottom: 8px;
+    color: white;
+    font-size: 17px;
+    background-color: #ee3332;
+    padding: 10px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.create-post-text::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #ee3332 transparent transparent transparent;
+}
+
+.create-post-button {
     width: 80px;
     height: 80px;
     border-radius: 50%;
