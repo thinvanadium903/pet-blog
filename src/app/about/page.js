@@ -9,13 +9,13 @@ export default function App() {
       <Header></Header>
       <h1 id='about-title'>About Us and This Project</h1>
       <p id='about-body'>
-        Hello! This project was created as part of a group project for UGA's Software Engineering 
+        Hello! This project was created as part of a group project for UGA&apos;s Software Engineering 
         course. We chose to design a pet blog as we all share a passion for pets and wanted a 
         place for students and friends to share pet photos.
       </p>
       <p id='about-body'>
         This site supports account creation, the ability to post and delete to the main 
-        dashboard, and the ability to show love to the posts you enjoy with a 'like' button. 
+        dashboard, and the ability to show love to the posts you enjoy with a &apos;like&apos; button. 
       </p>
       <i id='about-disc'>
         Disclaimer: although we made best efforts to guarantee security and smoothness on this 
