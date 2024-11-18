@@ -29,18 +29,53 @@ input {
   border-radius: 5px;
   background-color: #2e2e2e;
   color: #fff;
+  outline: none; /* Remove default outline */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-button {
-  padding: 10px;
-  background-color: #444;
-  color: #fff;
+input:focus {
+  border-color: #007bff; /* Match the button color */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add glow effect */
+}
+
+
+.login-button {
+  padding: 12px 20px;
+  background-color: #007bff; /* Friendly blue color */
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: all 0.3s ease; /* Smooth hover/active effects */
 }
 
-button:hover {
-  background-color: #666;
+.login-button:hover {
+  background-color: #0056b3; /* Darker blue for hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.login-button:active {
+  background-color: #003d80; /* Even darker blue for active state */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+  transform: translateY(0); /* Reset lift */
+}
+
+.login-button:disabled {
+  background-color: rgba(200, 200, 200, 0.6); /* Muted, low-contrast gray */
+  color: rgba(255, 255, 255, 0.6); /* Lighter text to match the muted background */
+  cursor: not-allowed; /* Ensure it visually indicates it's not clickable */
+  box-shadow: none; /* Remove depth effect */
+  transform: none; /* Ensure no hover effects apply */
+  opacity: 0.6; /* Add transparency for further visual indication */
+}
+
+.error-message {
+  color: #ff4d4f; /* Bright red for error message */
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
 }

@@ -31,34 +31,125 @@ input {
   color: #fff;
 }
 
-button {
-  padding: 10px;
-  background-color: #444;
-  color: #fff;
+/* Container for password field with icon */
+.password-container {
+  position: relative;
+  width: 250px; /* Match the width of input */
+}
+
+.password-container input {
+  width: 100%;
+  /*padding-right: 40px; !* Leave space for the eye icon *!*/
+}
+
+.toggle-password-visibility {
+  position: absolute;
+  top: 50%;
+  left: 240px;
+  transform: translateY(-45%);
+  background: none;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  padding: 0;
+  font-size: 20px;
+  color: #aaa;
 }
 
-button:hover {
-  background-color: #666;
+.toggle-password-visibility:hover {
+  color: #fff; /* Change color on hover */
 }
 
-button:disabled {
-  background-color: grey
+.toggle-password-visibility:focus {
+  outline: 2px solid #007bff; /* Accessibility focus outline */
+}
+
+.signup-button {
+  padding: 12px 20px;
+  background-color: #28a745; /* Subdued green used in Bootstrap */
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: #218838; /* Darker shade for hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+
+.signup-button:active {
+  background-color: #0e8c00;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
+}
+
+.signup-button:disabled {
+  background-color: rgba(200, 200, 200, 0.6); /* Muted, low-contrast gray */
+  color: rgba(255, 255, 255, 0.6); /* Lighter text to match the muted background */
+  cursor: not-allowed; /* Ensure it visually indicates it's not clickable */
+  box-shadow: none; /* Remove depth effect */
+  transform: none; /* Ensure no hover effects apply */
+  opacity: 0.6; /* Add transparency for further visual indication */
 }
 
 .warnings {
   font-size: 11.3pt;
 }
 
+/* Animation for valid/invalid state changes */
+@keyframes pop {
+  0% {
+    transform: scale(1); /* Start at normal size */
+  }
+  50% {
+    transform: scale(1.2); /* Scale up to 20% larger */
+  }
+  100% {
+    transform: scale(1); /* Return to normal size */
+  }
+}
+
 .valid-entry {
   transition: color 0.3s ease;
-  color: lightgray;
+  color: rgba(0, 244, 56, 0.87); /* Green for valid entries */
+  animation: pop 0.3s ease-in-out; /* Apply pop effect */
 }
 
 .invalid-entry {
   transition: color 0.3s ease;
-  color: #ee3332;
+  color: #ff4d4f; /* Red for invalid entries */
+  /*animation: fadeOut 0.3s ease-in; !* Smooth fade-out effect for invalid state *!*/
 }
+
+.valid-entry span, .invalid-entry span {
+  font-weight: bold;
+  margin-left: 8px;
+  display: inline-block; /* Ensure emojis align well with text */
+  transition: transform 0.3s ease;
+}
+
+.valid-entry span {
+  animation: fadeIn 0.3s ease-in; /* Animate when checkmark appears */
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.invalid-entry span {
+  animation: shake 0.5s ease-in-out; /* Shake animation */
+  font-weight: bold;
+  margin-left: 8px;
+  display: inline-block; /* Ensure proper alignment with text */
+}
+
