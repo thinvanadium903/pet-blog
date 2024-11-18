@@ -11,9 +11,13 @@ function Submission({id, name, imageUrl, description, userName, createdAt}) {
     const {currentUser} = useAuth();
     const [likes, setLikes] = useState(0);
     const [liked, setLiked] = useState(false);
-    const [loading, setLoading] = useState(false); // Track button state
+    const [loading, setLoading] = useState(false);
+    const [fadeIn, setFadeIn] = useState(false); // State for animation
 
     useEffect(() => {
+        // Trigger fade-in animation on mount
+        setFadeIn(true);
+
         const fetchLikes = async () => {
             try {
                 // Get the total like count
@@ -36,7 +40,6 @@ function Submission({id, name, imageUrl, description, userName, createdAt}) {
 
         fetchLikes();
     }, [id, currentUser]);
-
 
     const handleLikeClick = () => {
         toast.warn('Please log in or sign up to like posts!', {
@@ -98,7 +101,7 @@ function Submission({id, name, imageUrl, description, userName, createdAt}) {
     };
 
     return (
-        <div className="submission-whole">
+        <div className={`submission-whole ${fadeIn ? 'fade-in' : ''}`}>
             <div className="image" style={divStyle}></div>
             <div className="submission-preview">
                 <div className="submission-name">
