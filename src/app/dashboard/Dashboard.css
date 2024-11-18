@@ -162,3 +162,19 @@
 .post-date {
     color: #aaa;
 }
+
+.delete-button {
+    background-color: #e63946;
+    color: #fff;
+    border: none;
+    margin-left: 12vw;
+    margin-top: 8vw;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #cc2929;
+}

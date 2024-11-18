@@ -6,14 +6,18 @@ import {useEffect, useState} from "react";
 import Header from "../components/Header";
 import Link from "next/link";
 import './Dashboard.css'; // Import the new CSS file
-import {collection, query, where, getDocs} from "firebase/firestore";
+import {collection, query, where, getDocs, doc, deleteDoc} from "firebase/firestore";
 import {db} from "../../firebase";
+import { toast } from 'react-toastify';
+import ConfirmationModal from '../confirm-modal/ConfirmationModal';
 
 export default function Dashboard() {
     const {currentUser, loading, logout} = useAuth();
     const router = useRouter();
     const [isDelayed, setIsDelayed] = useState(true);
     const [userPosts, setUserPosts] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [postIdToDelete, setPostIdToDelete] = useState(null);
 
     useEffect(() => {
         // Set a small delay before showing the content
@@ -95,6 +99,25 @@ export default function Dashboard() {
         }
     };
 
+    const openModal = (postId) => {
+        setPostIdToDelete(postId);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setPostIdToDelete(null);
+    };
+
+    const confirmDelete = async () => {
+        try {
+            await deleteDoc(doc(db, 'posts', postIdToDelete));
+            setUserPosts(userPosts.filter(post => post.id !== postIdToDelete));
+            closeModal();
+        } catch (error) {
+            console.error("Error deleting post:", error);
+        }
+    };
 
     return (
         <div>
@@ -129,6 +152,7 @@ export default function Dashboard() {
                                         on: {new Date(post.createdAt.seconds * 1000).toLocaleDateString()} at {new Date(post.createdAt.seconds * 1000).toLocaleTimeString()}
                                     </p>
                                 </div>
+                                <button className="delete-button" onClick={() => openModal(post.id)}>Delete</button>
                             </div>
                         ))
                     ) : (
@@ -136,6 +160,11 @@ export default function Dashboard() {
                     )}
                 </div>
             </div>
+            <ConfirmationModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onConfirm={confirmDelete}
+            />
         </div>
     );
 }
