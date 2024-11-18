@@ -110,11 +110,30 @@ export default function Dashboard() {
 
     const confirmDelete = async () => {
         try {
-            await deleteDoc(doc(db, 'posts', postIdToDelete));
+            // Reference to the document to delete
+            const postDocRef = doc(db, 'posts', postIdToDelete);
+
+            // Step 1: Recursively delete the subcollections (e.g., "likes")
+            const deleteSubcollections = async (parentDocRef) => {
+                const subcollections = ['likes']; // List all subcollection names here
+                for (const subcollectionName of subcollections) {
+                    const subcollectionRef = collection(parentDocRef, subcollectionName);
+                    const subcollectionDocs = await getDocs(subcollectionRef);
+                    const deletePromises = subcollectionDocs.docs.map(doc => deleteDoc(doc.ref));
+                    await Promise.all(deletePromises); // Wait for all documents to be deleted
+                }
+            };
+
+            await deleteSubcollections(postDocRef);
+
+            // Step 2: Delete the main post document
+            await deleteDoc(postDocRef);
+
+            // Step 3: Update the UI state
             setUserPosts(userPosts.filter(post => post.id !== postIdToDelete));
             closeModal();
         } catch (error) {
-            console.error("Error deleting post:", error);
+            console.error("Error deleting post and its subcollections:", error);
         }
     };
 
