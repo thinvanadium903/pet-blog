@@ -111,7 +111,7 @@ input {
     flex-direction: column;
     align-items: center; /* Center content horizontally */
     gap: 5px; /* Add consistent vertical spacing */
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
     text-align: center; /* Ensure text is centered within each line */
 }
 
@@ -121,7 +121,7 @@ input {
     justify-content: center; /* Center text and icons horizontally */
     align-items: center; /* Align icons and text vertically */
     min-height: 24px; /* Maintain consistent height for all warnings */
-    margin-bottom: 15px; /* Remove additional margins for better alignment */
+    margin-bottom: 12px; /* Remove additional margins for better alignment */
 }
 
 .warnings span {
