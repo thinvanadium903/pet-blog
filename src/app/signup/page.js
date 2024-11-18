@@ -116,7 +116,7 @@ export default function SignUp() {
                             />
                             <button
                                 type="button"
-                                className="toggle-password-visibility"
+                                className={`toggle-password-visibility ${showPassword ? "active" : ""}`}
                                 onClick={() => setShowPassword((prev) => !prev)}
                                 aria-label={showPassword ? "Hide password" : "Show password"}
                             >
