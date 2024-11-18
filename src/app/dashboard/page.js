@@ -8,7 +8,6 @@ import Link from "next/link";
 import './Dashboard.css'; // Import the new CSS file
 import {collection, query, where, getDocs, doc, deleteDoc} from "firebase/firestore";
 import {db} from "../../firebase";
-import { toast } from 'react-toastify';
 import ConfirmationModal from '../confirm-modal/ConfirmationModal';
 
 export default function Dashboard() {
