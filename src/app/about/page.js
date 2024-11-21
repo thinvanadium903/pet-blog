@@ -20,7 +20,8 @@ export default function App() {
       <i id='about-disc'>
         Disclaimer: although we made best efforts to guarantee security and smoothness on this 
         site, performance is not guaranteed. You may encounter unexpected glitches. If you have a 
-        serious issue please contact us at </i> <a href='ppb93083@uga.edu' id='email'>ppb93083@uga.edu</a><i className='line'>.</i>
+        serious issue please contact us at </i> <a href='ppb93083@uga.edu' id='email'>ppb93083@uga.edu</a>
+      <i className='line'>.</i>
 
     </div>
   )
