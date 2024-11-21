@@ -1,11 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import "./create-post.css";
+import {useState} from "react";
+import styles from './create-post.module.css';
 import Header from "../components/Header";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
+import {useAuth} from "../../context/AuthContext";
+import Link from "next/link";
+import {db} from "../../firebase";
+import {collection, addDoc} from "firebase/firestore";
+import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
 
 export default function CreatePost() {
+    const {currentUser, loading} = useAuth();
     const router = useRouter();
 
     const [petName, setPetName] = useState('');
@@ -15,12 +21,14 @@ export default function CreatePost() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [error, setError] = useState('');
 
+    const storage = getStorage();
+
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        
+
         if (file && file.type.startsWith('image/')) {
             setPhoto(file);
-            setError(''); 
+            setError('');
 
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -34,7 +42,7 @@ export default function CreatePost() {
         }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!petName || !description || !photo) {
@@ -42,9 +50,33 @@ export default function CreatePost() {
             return;
         }
 
-        setIsSubmitted(true);
+        try {
+            // Create a storage reference
+            const storageRef = ref(storage, `images/${photo.name}`);
+
+            // Upload the file
+            const snapshot = await uploadBytes(storageRef, photo);
+
+            // Get the download URL
+            const downloadURL = await getDownloadURL(snapshot.ref);
+
+            // Add a new document in the "posts" collection
+            await addDoc(collection(db, "posts"), {
+                petName,
+                description,
+                photoURL: downloadURL, // Store the download URL
+                userId: currentUser.uid,
+                createdAt: new Date()
+            });
+
+            setIsSubmitted(true);
+            setError('');
+        } catch (error) {
+            console.error("Error adding document: ", error);
+            setError("Failed to save post. Please try again.");
+        }
     };
-    
+
     const redirect = () => {
         router.push('/');
     }
@@ -53,57 +85,138 @@ export default function CreatePost() {
         setIsSubmitted(false); // Allow the user to go back and edit
     };
 
+    if (loading) {
+        return <p></p>;
+    }
+
+    if (!currentUser) {
+        return (
+            <div>
+                <Header/>
+                <div className={styles.centeredContent}>
+                    <h1>Please log in or sign up to <br/> create a post</h1>
+                    <div className={styles.buttonContainer}>
+                        <Link href="/login">
+                            <button className={styles.authButton}>Log In</button>
+                        </Link>
+                        <Link href="/signup">
+                            <button className={styles.authButton}>Sign Up</button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0]; // Get the first file
+        if (file && file.type.startsWith("image/")) {
+            setPhoto(file);
+            setError("");
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result); // Show preview
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setError("Please select a valid image file");
+        }
+    };
+
 
     return (
         <div>
             <Header/>
-            <div className="create-title">
+            <div className={styles.createTitle}>
                 <h1>Create a New Post</h1>
             </div>
 
-            <div className="full-screen">
-                <div className="create-post-container">
-                    {error && <p className="error-message">{error}</p>}
+            <div className={styles.fullScreen}>
+                <div className={styles.createPostContainer}>
+                    {error && <p className={styles.errorMessage}>{error}</p>}
 
                     {!isSubmitted ? (
-                        <form className="info-container" onSubmit={handleSubmit}>
-                            <div className="image-upload">
-                                <label htmlFor="photo">Add Photo:</label>
-                                <input type="file" id="photo" accept="image/*" onChange={handleFileChange} />
-                                {preview && <img src={preview} alt="Preview" style={{width: 'auto', maxHeight: '300px'}} />}
+                        <form className={styles.infoContainer} onSubmit={handleSubmit}>
+                            <div
+                                className={styles.imageUpload}
+                                onDragOver={(e) => e.preventDefault()} // Prevent default to allow drop
+                                onDragEnter={(e) => e.preventDefault()} // Prevent default
+                                onDrop={(e) => handleDrop(e)} // Handle file drop
+                            >
+                                <label htmlFor="photo" style={{cursor: "pointer", width: "100%"}}>
+                                    <div className={styles.dragBox}>
+                                        {preview ? (
+                                            <img src={preview} alt="Preview" className={styles.previewImage}/>
+                                        ) : (
+                                            <>
+                                                <span className={styles.labelText}>Add Photo:</span>
+                                                <p>Drag and drop a file here, or click to select a file</p>
+                                            </>
+                                        )}
+                                    </div>
+                                </label>
+                                <input
+                                    type="file"
+                                    id="photo"
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    style={{display: "none"}} // Hide the default file input
+                                />
                             </div>
-                            <div className="pet-name">
-                                <label htmlFor="petName">Pet name: </label>
+
+                            <div className={styles.fieldContainer}>
+                                <label htmlFor="petName">
+                                    <span className={styles.labelText}>Pet Name:</span>
+                                </label>
                                 <input
                                     type="text"
                                     id="petName"
                                     name="petName"
                                     value={petName}
+                                    placeholder="Enter your pet's name"
                                     onChange={(e) => setPetName(e.target.value)}
                                 />
                             </div>
-                            <div className="desc-container">
-                                <label htmlFor="description">Description</label>
+
+                            <div className={styles.fieldContainer}>
+                                <label htmlFor="description">
+                                    <span className={styles.labelText}>Description:</span>
+                                </label>
                                 <textarea
                                     id="description"
                                     name="description"
                                     value={description}
+                                    placeholder="Write a short description"
                                     onChange={(e) => setDescription(e.target.value)}
-                                    className="desc-input"
                                 />
                             </div>
 
-                            <button type="submit">Add</button>
+                            <button
+                                className={`${styles.submitButton} ${
+                                    !petName || !description || !photo ? styles.disabledButton : ""
+                                }`}
+                                type="submit"
+                                disabled={!petName || !description || !photo}
+                            >
+                                Add
+                            </button>
                         </form>
+
                     ) : (
-                        <div className="output-card">
-                            <h3 className="confirmation-text">Post saved successfully!</h3>
-                            <div className="image-upload">
-                                {preview && <img src={preview} alt="Pet" style={{ width: 'auto', maxHeight: '300px' }} />}
+                        <div className={styles.outputCard}>
+                            <h2 className={styles.confirmationTitle}>🎉 Post Uploaded Successfully!</h2>
+                            <div className={styles.imagePreviewContainer}>
+                                {preview && <img src={preview} alt="Pet" className={styles.previewImage}/>}
                             </div>
-                            <h3>{petName}</h3>
-                            <p>{description}</p>
-                            <button onClick={redirect}>Return to Home</button>
+                            <div className={styles.postDetails}>
+                                <h3 className={styles.petName}>{petName}</h3>
+                                <p className={styles.description}>{description}</p>
+                            </div>
+                            <button className={styles.returnButton} onClick={redirect}>
+                                Return to Home
+                            </button>
                         </div>
                     )}
                 </div>

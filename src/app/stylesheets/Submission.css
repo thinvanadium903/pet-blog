@@ -1,25 +1,41 @@
 .submission-whole {
     width: 40vw;
-    height: fit-content;
-    border-radius: 5vw 5vw 5vw 5vw;
+    /*height: fit-content;*/
+    border-radius: 2vw 2vw 2vw 2vw;
     transition: transform .25s;
     border: .65px solid black;
+    position: relative;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
 }
 
 .image {
     background-size: cover;
     background-position-x: center;
-    background-position-y: 30%;
+    background-position-y: 40%;
     justify-self: center;
     align-self: center;
-    height: 25vh;
+    height: 32vh;
     width: 40vw;
-    border-radius: 5vw 5vw 0vw 0vw;
+    border-radius: 2vw 2vw 0 0;
 }
 
-.submission-whole:hover {
-    transform: scale(1.05);
-}
+/*.submission-whole:hover {*/
+/*    transform: scale(1.05);*/
+/*}*/
 
 .submission-preview {
     display: flex;
@@ -41,11 +57,6 @@
     padding-right: 3vw;
 }
 
-.submission-name:hover h2 {
-    transform: scale(1.02);
-    color: #bb3332;
-}
-
 .submission-preview p {
     font-weight: 350;
     color: #222222;
@@ -56,10 +67,9 @@
 }
 
 #source {
-    font-weight: 350;
     color: #222222;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding-bottom: 1vw;
+    padding-bottom: 0.2vw;
     padding-right: 3vw;
     height: fit-content;
     font-weight: 600;
@@ -101,11 +111,71 @@
     .submission-whole {
         width: 30vw;
     }
+
     .submission-preview {
-        width: 30vw;
+        width: 29.5vw;
     }
+
     .image {
         width: 30vw;
+    }
+}
+
+button {
+    /*background-color: #ee3332;*/
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #cc2929;
+}
+
+/* Styling for the like button */
+.like-icon {
+    position: absolute;
+    bottom: 48px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 32px;
+    transition: transform 0.2s ease, color 0.2s ease;
+    color: #cccccc; /* Default gray for unliked state */
+    display: flex;
+    align-items: center; /* Align icon and text vertically */
+    background: none;
+    border: none;
+}
+
+/* Hover and animation effects */
+.like-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Liked state */
+.like-icon.liked {
+    color: #e63946; /* Bright red for liked state */
+    animation: liked-animation 0.3s ease;
+}
+
+/* Unliked state */
+.like-icon.unliked {
+    color: #cccccc; /* Light gray for unliked state */
+}
+
+/* Heart "pop" animation when liked */
+@keyframes liked-animation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
     }
 }
 

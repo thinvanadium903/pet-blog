@@ -2,63 +2,194 @@
 
 /* Center the entire signup content */
 .signup-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  /* height: calc(100vh - 80px); */
-  /* background-color: #1e1e1e; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /*height: calc(100vh - 80px);*/
+    /*background-color: #1e1e1e;*/
 }
 
 h1 {
-  color: #ffffff;
-  margin-bottom: 20px;
+    color: #ffffff;
+    margin-bottom: 15px;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 input {
-  padding: 10px;
-  width: 250px;
-  border: 1px solid #333;
-  border-radius: 5px;
-  background-color: #2e2e2e;
-  color: #fff;
+    padding: 10px;
+    width: 250px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #2e2e2e;
+    color: #fff;
 }
 
-button {
-  padding: 10px;
-  background-color: #444;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* Container for password field with icon */
+.password-container {
+    position: relative;
+    width: 250px; /* Match the width of input */
+    margin-right: 22px;
 }
 
-button:hover {
-  background-color: #666;
+.password-container input {
+    width: 100%;
+    padding-right: 10px; /* Leave space for the eye icon */
 }
 
-button:disabled {
-  background-color: grey
+.toggle-password-visibility {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 243px; /* Align icon close to the edge */
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 3px;
+    font-size: 20px;
+    color: #aaa;
+    border-radius: 5px;
+    transition: all 0.3s ease; /* Add smooth transitions */
+}
+
+.toggle-password-visibility:hover {
+    color: #fff; /* Change icon color */
+    background-color: rgba(204, 41, 41, 0.38); /* Softer red with transparency */
+    transform: translateY(-50%) scale(1.2); /* Slight scaling for hover effect */
+    box-shadow: 0px 2px 8px rgba(204, 41, 41, 0.7); /* Add subtle shadow */
+}
+
+.toggle-password-visibility.active {
+    background-color: rgba(204, 41, 41, 0.9); /* Match hover style */
+    transform: translateY(-50%) scale(1.2); /* Slight scaling for hover effect */
+    box-shadow: 0px 2px 8px rgba(204, 41, 41, 0.7); /* Add subtle shadow */
+}
+
+
+.signup-button {
+    padding: 12px 20px;
+    background-color: #28a745; /* Subdued green used in Bootstrap */
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.signup-button:hover {
+    background-color: #218838; /* Darker shade for hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+
+.signup-button:active {
+    background-color: #0e8c00;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+}
+
+.signup-button:disabled {
+    background-color: rgba(200, 200, 200, 0.6); /* Muted, low-contrast gray */
+    color: rgba(255, 255, 255, 0.6); /* Lighter text to match the muted background */
+    cursor: not-allowed; /* Ensure it visually indicates it's not clickable */
+    box-shadow: none; /* Remove depth effect */
+    transform: none; /* Ensure no hover effects apply */
+    opacity: 0.6; /* Add transparency for further visual indication */
 }
 
 .warnings {
-  font-size: 11.3pt;
+    font-size: 11.3pt;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    gap: 5px; /* Add consistent vertical spacing */
+    /*margin-bottom: 5px;*/
+    text-align: center; /* Ensure text is centered within each line */
+}
+
+.warnings p {
+    text-align: center; /* Center-align text within the paragraph */
+    display: flex;
+    justify-content: center; /* Center text and icons horizontally */
+    align-items: center; /* Align icons and text vertically */
+    min-height: 24px; /* Maintain consistent height for all warnings */
+    margin-bottom: 12px; /* Remove additional margins for better alignment */
+}
+
+.warnings span {
+    margin-left: 8px; /* Add spacing between text and icon */
+    font-size: 16px; /* Keep icon size consistent */
+}
+
+
+/* Animation for valid/invalid state changes */
+@keyframes pop {
+    0% {
+        transform: scale(1); /* Start at normal size */
+    }
+    50% {
+        transform: scale(1.2); /* Scale up to 20% larger */
+    }
+    100% {
+        transform: scale(1); /* Return to normal size */
+    }
 }
 
 .valid-entry {
-  transition: color 0.3s ease;
-  color: lightgray;
+    transition: color 0.3s ease;
+    color: rgba(0, 244, 56, 0.87); /* Green for valid entries */
+    animation: pop 0.3s ease-in-out; /* Apply pop effect */
 }
 
 .invalid-entry {
-  transition: color 0.3s ease;
-  color: #ee3332;
+    transition: color 0.3s ease;
+    color: #ff4d4f; /* Red for invalid entries */
+    /*animation: fadeOut 0.3s ease-in; !* Smooth fade-out effect for invalid state *!*/
 }
+
+.valid-entry span, .invalid-entry span {
+    /*font-weight: bold;*/
+    margin-left: 8px;
+    display: inline-block; /* Ensure emojis align well with text */
+    transition: transform 0.3s ease;
+}
+
+.valid-entry span {
+    animation: fadeIn 0.3s ease-in; /* Animate when checkmark appears */
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.invalid-entry span {
+    animation: shake 0.5s ease-in-out; /* Shake animation */
+    font-weight: bold;
+    margin-left: 8px;
+    display: inline-block; /* Ensure proper alignment with text */
+}
+

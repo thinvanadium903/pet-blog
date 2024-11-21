@@ -2,45 +2,120 @@
 
 /* Center the entire login content */
 .login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  /* height: calc(100vh - 80px); */
-  /* background-color: #1e1e1e; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* height: calc(100vh - 80px); */
+    /* background-color: #1e1e1e; */
 }
 
 h1 {
-  color: #ffffff;
-  margin-bottom: 20px;
+    color: #ffffff;
+    margin-bottom: 20px;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 input {
-  padding: 10px;
-  width: 250px;
-  border: 1px solid #333;
-  border-radius: 5px;
-  background-color: #2e2e2e;
-  color: #fff;
+    padding: 10px;
+    width: 250px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #2e2e2e;
+    color: #fff;
+    outline: none; /* Remove default outline */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-button {
-  padding: 10px;
-  background-color: #444;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+input:focus {
+    border-color: #007bff; /* Match the button color */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add glow effect */
 }
 
-button:hover {
-  background-color: #666;
+.login-button {
+    padding: 12px 20px;
+    background-color: #007bff; /* Friendly blue color */
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: all 0.3s ease; /* Smooth hover/active effects */
+}
+
+.login-button:hover {
+    background-color: #0056b3; /* Darker blue for hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.login-button:active {
+    background-color: #003d80; /* Even darker blue for active state */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+    transform: translateY(0); /* Reset lift */
+}
+
+.login-button:disabled {
+    background-color: rgba(200, 200, 200, 0.6); /* Muted, low-contrast gray */
+    color: rgba(255, 255, 255, 0.6); /* Lighter text to match the muted background */
+    cursor: not-allowed; /* Ensure it visually indicates it's not clickable */
+    box-shadow: none; /* Remove depth effect */
+    transform: none; /* Ensure no hover effects apply */
+    opacity: 0.6; /* Add transparency for further visual indication */
+}
+
+.error-message {
+    color: #ff4d4f; /* Bright red for error message */
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+/* Container for password field with icon */
+.password-container {
+    position: relative;
+    width: 250px; /* Match the width of input */
+    margin-right: 22px;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 10px; /* Leave space for the eye icon */
+}
+
+.toggle-password-visibility {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 243px; /* Align icon close to the edge */
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 3px;
+    font-size: 20px;
+    color: #aaa;
+    border-radius: 5px;
+    transition: all 0.3s ease; /* Add smooth transitions */
+}
+
+.toggle-password-visibility:hover {
+    color: #fff; /* Change icon color */
+    background-color: rgba(204, 41, 41, 0.38); /* Softer red with transparency */
+    transform: translateY(-50%) scale(1.2); /* Slight scaling for hover effect */
+    box-shadow: 0px 2px 8px rgba(204, 41, 41, 0.7); /* Add subtle shadow */
+}
+
+.toggle-password-visibility.active {
+    background-color: rgba(204, 41, 41, 0.9); /* Match hover style */
+    transform: translateY(-50%) scale(1.2); /* Slight scaling for hover effect */
+    box-shadow: 0px 2px 8px rgba(204, 41, 41, 0.7); /* Add subtle shadow */
 }
