@@ -9,9 +9,10 @@ import Link from "next/link";
 import {db} from "../../firebase";
 import {collection, addDoc} from "firebase/firestore";
 import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
+import heic2any from "heic2any";
 
 export default function CreatePost() {
-    const {currentUser, loading} = useAuth();
+    const {currentUser, loading: authLoading} = useAuth();
     const router = useRouter();
 
     const [petName, setPetName] = useState('');
@@ -20,26 +21,75 @@ export default function CreatePost() {
     const [preview, setPreview] = useState(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [error, setError] = useState('');
+    const [isProcessing, setIsProcessing] = useState(false); // Loading state for image processing
 
     const storage = getStorage();
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
+    const processFile = async (file) => {
+        if (!file) {
+            setError("Please select a file");
+            return;
+        }
 
-        if (file && file.type.startsWith('image/')) {
+        setIsProcessing(true); // Show loading indicator
+
+        if (file.type === "image/heic" || file.name.endsWith(".HEIC")) {
+            try {
+                // Convert HEIC to JPEG
+                const convertedBlob = await heic2any({
+                    blob: file,
+                    toType: "image/jpeg",
+                });
+
+                const convertedFile = new File(
+                    [convertedBlob],
+                    file.name.replace(".HEIC", ".jpeg"),
+                    {type: "image/jpeg"}
+                );
+
+                setPhoto(convertedFile);
+                setError("");
+
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setPreview(reader.result);
+                    setIsProcessing(false); // Hide loading indicator
+                };
+                reader.readAsDataURL(convertedFile);
+            } catch (error) {
+                console.error("Error converting HEIC file: ", error);
+                setError("Failed to process HEIC file. Please try another image.");
+                setPhoto(null);
+                setPreview(null);
+                setIsProcessing(false); // Reset processing state on error
+            }
+        } else if (file.type.startsWith("image/")) {
             setPhoto(file);
-            setError('');
+            setError("");
 
             const reader = new FileReader();
             reader.onloadend = () => {
                 setPreview(reader.result);
+                setIsProcessing(false); // Hide loading indicator
             };
             reader.readAsDataURL(file);
         } else {
-            setError('Please select a valid image file');
+            setError("Please select a valid image file");
             setPhoto(null);
             setPreview(null);
+            setIsProcessing(false); // Reset processing state
         }
+    };
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        processFile(file);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0]; // Get the first file
+        processFile(file);
     };
 
     const handleSubmit = async (event) => {
@@ -79,13 +129,13 @@ export default function CreatePost() {
 
     const redirect = () => {
         router.push('/');
-    }
+    };
 
     const handleEdit = () => {
         setIsSubmitted(false); // Allow the user to go back and edit
     };
 
-    if (loading) {
+    if (authLoading) {
         return <p></p>;
     }
 
@@ -108,24 +158,6 @@ export default function CreatePost() {
         );
     }
 
-    const handleDrop = (e) => {
-        e.preventDefault();
-        const file = e.dataTransfer.files[0]; // Get the first file
-        if (file && file.type.startsWith("image/")) {
-            setPhoto(file);
-            setError("");
-
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreview(reader.result); // Show preview
-            };
-            reader.readAsDataURL(file);
-        } else {
-            setError("Please select a valid image file");
-        }
-    };
-
-
     return (
         <div>
             <Header/>
@@ -143,11 +175,16 @@ export default function CreatePost() {
                                 className={styles.imageUpload}
                                 onDragOver={(e) => e.preventDefault()} // Prevent default to allow drop
                                 onDragEnter={(e) => e.preventDefault()} // Prevent default
-                                onDrop={(e) => handleDrop(e)} // Handle file drop
+                                onDrop={handleDrop} // Handle file drop
                             >
                                 <label htmlFor="photo" style={{cursor: "pointer", width: "100%"}}>
                                     <div className={styles.dragBox}>
-                                        {preview ? (
+                                        {isProcessing ? (
+                                            <div className={styles.loadingIndicator}>
+                                                <div className={styles.spinner}></div>
+                                                <p>Processing your image...</p>
+                                            </div>
+                                        ) : preview ? (
                                             <img src={preview} alt="Preview" className={styles.previewImage}/>
                                         ) : (
                                             <>
@@ -160,7 +197,7 @@ export default function CreatePost() {
                                 <input
                                     type="file"
                                     id="photo"
-                                    accept="image/*"
+                                    accept="image/*,.heic"
                                     onChange={handleFileChange}
                                     style={{display: "none"}} // Hide the default file input
                                 />
