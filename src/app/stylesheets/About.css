@@ -4,25 +4,47 @@
     font-size: 30pt;
 }
 
-#about-body, #about-disc {
+#about-body, i, li {
     margin-top: 1vh;
+    padding-right: 3vw;
     margin-bottom: 1vh;
-    padding-left: 3vw;
+    margin-left: 3vw;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 14pt;
+    font-size: 18pt;
+    line-height: 150%;
+    padding-right: 3vw;
+}
+
+ul {
+    margin-left: 3vw;
 }
 
 #email {
-    display: inline;
+    margin-top: 1vh;
+    padding-right: 3vw;
+    margin-bottom: 1vh;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 18pt;
+    line-height: 150%;
+    display: block;
     text-decoration: underline;
+    color: #ee3332;
+    transition: transform .3s;
 }
 
 #email:hover {
-    color: #5555FF;
+    transform: scale(1.1);
 }
 
-.line {
+#about-disc i {
+    padding-right: 3vw;
+    display: inline-flex;
+}
+
+span {
+    display: flex;
+}
+
+#about-disc {
     display: inline;
-    padding-left: 0;
 }
