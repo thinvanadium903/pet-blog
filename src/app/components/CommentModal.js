@@ -128,7 +128,7 @@ function CommentModal({isOpen, onRequestClose, postId}) {
                             </button>
                         </>
                     ) : (
-                        <p className="comment-login-message">Log in to add a comment.</p>
+                        <p className="comment-modal comment-login-message">Log in to add a comment.</p>
                     )}
                 </div>
             </div>

@@ -183,6 +183,7 @@
     color: #fff;
     align-content: center;
     padding: 12px;
+    width: 95%;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -230,4 +231,9 @@
     transform: scale(1.2); /* Slight enlargement on hover */
     background-color: #ff4b4b; /* Highlighted red background */
     color: #fff; /* Keep text white */
+}
+
+.comment-login-message {
+    text-align: center;
+    background-color: #2c2c2c;
 }
