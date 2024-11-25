@@ -1,9 +1,12 @@
 .submission-whole {
-    width: 40vw;
-    /*height: fit-content;*/
-    border-radius: 2vw 2vw 2vw 2vw;
-    transition: transform .25s;
-    border: .65px solid black;
+    width: 90%;
+    max-width: 600px;
+    /*margin: 10px auto;*/
+    margin: 20px auto; /* Add spacing between cards */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 12px 12px 0px 0px; /* Adjust for smoother corners */
+    transition: transform 0.25s, box-shadow 0.25s;
+    border: 1px solid black;
     position: relative;
 }
 
@@ -24,158 +27,175 @@
 
 .image {
     background-size: cover;
-    background-position-x: center;
-    background-position-y: 40%;
-    justify-self: center;
-    align-self: center;
-    height: 32vh;
-    width: 40vw;
-    border-radius: 2vw 2vw 0 0;
+    background-position: center;
+    height: 300px;
+    width: 100%;
+    border-radius: 15px 15px 0 0;
+    object-fit: cover;
+
 }
 
-/*.submission-whole:hover {*/
-/*    transform: scale(1.05);*/
-/*}*/
+.submission-whole:hover {
+    /*transform: scale(1.03);*/
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
 
 .submission-preview {
     display: flex;
     flex-direction: column;
-    width: 40vw;
-    height: fit-content;
-    padding-bottom: 1vw;
-    margin-left: 2vw;
+    padding: 15px;
+    gap: 10px;
 }
 
 .submission-name h2 {
-    transition: transform .25s;
-    text-decoration: underline;
+    font-size: clamp(1.2rem, 2vw, 2rem);
     font-weight: 650;
     color: #222222;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding-right: 3vw;
+    text-decoration: underline;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .submission-preview p {
     font-weight: 350;
     color: #222222;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding-bottom: 1vw;
-    padding-right: 3vw;
-    height: fit-content;
 }
 
 #source {
     color: #222222;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding-bottom: 0.2vw;
-    padding-right: 3vw;
-    height: fit-content;
     font-weight: 600;
 }
 
 @media (prefers-color-scheme: dark) {
     .submission-whole {
-        border: .65px solid white;
+        background-color: #1e1e1e;
+        border: 1px solid #555;
+    }
+
+    .submission-preview {
+        /*background-color: #2a2a2a;*/
+        color: #ddd;
     }
 
     .submission-name h2 {
-        color: #DDDDDD;
+        color: #fff;
     }
 
-    .submission-preview p {
-        color: #DDDDDD;
-    }
-
-    #source {
-        color: #DDDDDD;
+    #source, .submission-preview p {
+        color: #ddd;
     }
 }
 
-@media (max-width: 700px) {
-    .submission-whole {
-        width: 80vw;
-    }
-
-    .submission-preview {
-        width: 80vw;
-    }
-
-    .image {
-        width: 80vw;
-    }
-}
-
-@media (min-width: 1100px) {
-    .submission-whole {
-        width: 30vw;
-    }
-
-    .submission-preview {
-        width: 29.5vw;
-    }
-
-    .image {
-        width: 30vw;
-    }
-}
-
-button {
-    /*background-color: #ee3332;*/
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #cc2929;
-}
-
-/* Styling for the like button */
-.like-icon {
-    position: absolute;
-    bottom: 48px;
-    right: 20px;
-    cursor: pointer;
-    font-size: 32px;
-    transition: transform 0.2s ease, color 0.2s ease;
-    color: #cccccc; /* Default gray for unliked state */
+.submission-meta {
     display: flex;
-    align-items: center; /* Align icon and text vertically */
-    background: none;
-    border: none;
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Space out "Posted on" and like button */
+    gap: 10px; /* Add some spacing between elements */
+    margin-bottom: 10px; /* Add some spacing above */
+    color: #444; /* Neutral text color */
+    font-size: 14px; /* Adjust font size */
 }
 
-/* Hover and animation effects */
+.posted-on {
+    color: #555; /* Slightly lighter text color */
+    font-size: 16px; /* Adjust font size */
+    /*margin-bottom: 10px;*/
+}
+
+.like-icon {
+    display: flex;
+    align-items: center;
+    gap: 7px; /* Space between heart and count */
+    padding: 0px 8px; /* Adjust padding for better spacing */
+    font-size: 16px; /* Adjust font size */
+    background-color: transparent; /* Remove background */
+    border: none; /* Remove border */
+    cursor: pointer;
+    color: #888; /* Default color */
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
 .like-icon:hover {
-    transform: scale(1.1);
+    color: #e63946; /* Highlight color on hover */
+    transform: scale(1.2); /* Slight zoom on hover */
 }
 
-/* Liked state */
 .like-icon.liked {
-    color: #e63946; /* Bright red for liked state */
-    animation: liked-animation 0.3s ease;
+    color: #e63946; /* Red color for liked state */
+    background: #e63946;
+    border-radius: 10%;
 }
 
-/* Unliked state */
-.like-icon.unliked {
-    color: #cccccc; /* Light gray for unliked state */
+
+.like-icon:active {
+    transform: scale(0.95); /* Shrink slightly on click */
 }
 
-/* Heart "pop" animation when liked */
-@keyframes liked-animation {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.5);
-    }
-    100% {
-        transform: scale(1);
-    }
+.like-heart {
+    font-size: 32px; /* Larger heart icon */
 }
 
+.like-count {
+    font-weight: bold;
+    font-size: 20px;
+    color: white; /* Darker text for visibility */
+}
+
+
+.comments-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between icon and text */
+    background-color: #007bff; /* Primary color */
+    color: #fff; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for a button-like appearance */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Make text bold */
+    cursor: pointer; /* Pointer on hover */
+    position: relative; /* For positioning the tooltip */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Add subtle shadow */
+}
+
+.comments-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slight enlargement on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow */
+}
+
+.comments-button:active {
+    transform: scale(0.95); /* Reduce size on click */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow on active */
+}
+
+.comments-button .icon {
+    font-size: 20px; /* Adjust icon size */
+}
+
+/* Tooltip Styles */
+.comments-button .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 120%; /* Position the tooltip above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000; /* Black background for tooltip */
+    color: #fff; /* White text */
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: normal;
+    white-space: nowrap; /* Prevent text wrap */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: visibility 0.2s ease, opacity 0.2s ease;
+}
+
+.comments-button:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}

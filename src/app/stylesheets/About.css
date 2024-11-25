@@ -1,50 +1,84 @@
-#about-title {
-    margin-left: 3vw;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 30pt;
+/* General Container */
+.about-container {
+    /*padding: 2rem 3vw;*/
+    background-color: #171717; /* Restore the red background */
+    color: #fff; /* Adjust text color for contrast */
+    font-family: Arial, sans-serif;
 }
 
-#about-body, i, li {
-    margin-top: 1vh;
-    padding-right: 3vw;
-    margin-bottom: 1vh;
-    margin-left: 3vw;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 18pt;
-    line-height: 150%;
-    padding-right: 3vw;
+/* Content Wrapper */
+.about-content {
+    background-color: #333;
+    color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: auto;
 }
 
-ul {
-    margin-left: 3vw;
+/* Title Styling */
+.about-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ee3332;
+    display: inline-block;
+    padding-bottom: 0.5rem;
 }
 
-#email {
-    margin-top: 1vh;
-    padding-right: 3vw;
-    margin-bottom: 1vh;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 18pt;
-    line-height: 150%;
+/* Body Text Styling */
+.about-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 1rem 0;
+    max-width: 800px;
+    color: white;
+    text-align: justify;
+}
+
+/* Features List */
+.about-features {
+    list-style: disc;
+    padding-left: 1.5rem;
+    max-width: 800px;
+    margin: 1rem auto;
+    color: white;
+}
+
+.about-features li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Disclaimer Section */
+.about-disclaimer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: black;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+/* Email Link */
+.about-email {
     display: block;
-    text-decoration: underline;
+    margin-top: 0.5rem;
     color: #ee3332;
-    transition: transform .3s;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
 }
 
-#email:hover {
-    transform: scale(1.1);
-}
-
-#about-disc i {
-    padding-right: 3vw;
-    display: inline-flex;
-}
-
-span {
-    display: flex;
-}
-
-#about-disc {
-    display: inline;
+.about-email:hover {
+    transform: scale(1.05);
+    color: #d40000;
 }

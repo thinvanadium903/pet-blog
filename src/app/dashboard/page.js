@@ -55,6 +55,46 @@ export default function Dashboard() {
         fetchUserPosts();
     }, [currentUser]);
 
+    useEffect(() => {
+        const fetchUserPostsWithComments = async () => {
+            if (currentUser) {
+                try {
+                    const q = query(collection(db, 'posts'), where('userId', '==', currentUser.uid));
+                    const querySnapshot = await getDocs(q);
+
+                    const posts = await Promise.all(
+                        querySnapshot.docs.map(async (doc) => {
+                            const postData = doc.data();
+                            const postId = doc.id;
+
+                            // Fetch comments for the post
+                            const commentsRef = collection(db, 'posts', postId, 'comments');
+                            const commentsSnapshot = await getDocs(commentsRef);
+                            const comments = commentsSnapshot.docs.map((commentDoc) => ({
+                                id: commentDoc.id,
+                                ...commentDoc.data(),
+                            }));
+
+                            return {
+                                id: postId,
+                                ...postData,
+                                comments, // Include comments in the post data
+                            };
+                        })
+                    );
+
+                    posts.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
+                    setUserPosts(posts);
+                } catch (error) {
+                    console.error('Error fetching posts with comments:', error);
+                }
+            }
+        };
+
+        fetchUserPostsWithComments();
+    }, [currentUser]);
+
+
     if (loading || isDelayed) {
         return (
             <Header/>
@@ -157,20 +197,77 @@ export default function Dashboard() {
                     <h2>Your Posts</h2>
                     <br/>
                     {userPosts.length > 0 ? (
-                        userPosts.map(post => (
+                        userPosts.map((post) => (
                             <div key={post.id} className="post-card">
                                 <img src={post.photoURL} alt={post.petName} className="post-image"/>
                                 <div className="post-content">
                                     <h3>{post.petName}</h3>
                                     <p className="post-description">{post.description}</p>
-                                    <p className="post-likes"> Likes: ❤️ {post.likeCount}
-                                    </p>
+                                    <p className="post-likes">Likes: ❤️ {post.likeCount}</p>
                                     <p className="post-date">
                                         Posted
-                                        on: {new Date(post.createdAt.seconds * 1000).toLocaleDateString()} at {new Date(post.createdAt.seconds * 1000).toLocaleTimeString()}
+                                        on: {new Date(post.createdAt.seconds * 1000).toLocaleDateString()} at{' '}
+                                        {new Date(post.createdAt.seconds * 1000).toLocaleTimeString()}
                                     </p>
+                                    {/* Display comments */}
+                                    <div className="post-comments-dashboard">
+                                        <h4
+                                            className="comments-toggle-dashboard"
+                                            onClick={() => {
+                                                const updatedPosts = userPosts.map((p) =>
+                                                    p.id === post.id ? {...p, showComments: !p.showComments} : p
+                                                );
+                                                setUserPosts(updatedPosts);
+                                            }}
+                                        >
+                                            {post.showComments ? `Hide Comments (${(post.comments || []).length}) ▼` : `Show Comments (${(post.comments || []).length}) ▲`}
+                                        </h4>
+                                        {post.showComments && (
+                                            <div
+                                                className={`comments-list-dashboard ${post.showComments ? 'expanded' : ''}`}>
+
+                                                {(post.comments || []).length > 0 ? (
+                                                    <>
+                                                        {post.comments.slice(0, post.showAllComments ? post.comments.length : 3).map((comment, index) => (
+                                                            <div key={comment.id} className="comment-dashboard">
+                                                                <p>
+                                                                    <strong>{comment.userName}:</strong> {comment.text}
+                                                                </p>
+                                                                {index < post.comments.length - 1 &&
+                                                                    <hr className="comment-divider-dashboard"/>}
+                                                            </div>
+                                                        ))}
+                                                        {post.comments.length > 3 && (
+                                                            <button
+                                                                className="show-more-comments-dashboard"
+                                                                onClick={() => {
+                                                                    const updatedPosts = userPosts.map((p) =>
+                                                                        p.id === post.id ? {
+                                                                            ...p,
+                                                                            showAllComments: !p.showAllComments
+                                                                        } : p
+                                                                    );
+                                                                    setUserPosts(updatedPosts);
+                                                                }}
+                                                            >
+                                                                {post.showAllComments ? 'Show Less' : `Show More (${post.comments.length - 3})`}
+                                                            </button>
+                                                        )}
+                                                    </>
+                                                ) : (
+                                                    <p>No comments yet.</p>
+                                                )}
+
+
+                                            </div>
+                                        )}
+
+                                    </div>
+
                                 </div>
-                                <button className="delete-button" onClick={() => openModal(post.id)}>Delete</button>
+                                <button className="delete-button" onClick={() => openModal(post.id)}>
+                                    Delete
+                                </button>
                             </div>
                         ))
                     ) : (

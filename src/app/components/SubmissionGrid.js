@@ -6,9 +6,9 @@ import Submission from './Submission';
 function SubmissionGrid({ submissions }) {
     return (
         <div className="submission-grid">
-            {submissions.map((submission, index) => (
+            {submissions.map((submission) => (
                 <Submission
-                    key={index}
+                    key={submission.id}
                     id={submission.id}
                     name={submission.petName}
                     imageUrl={submission.photoURL}

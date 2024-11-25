@@ -114,9 +114,10 @@
     margin-bottom: 20px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Ensure image stays aligned to the top */
     gap: 17px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Optional for more precise control */
 }
 
 .post-card:hover {
@@ -136,7 +137,9 @@
     display: flex;
     flex-direction: column;
     text-align: left;
+    flex-grow: 1;
 }
+
 
 .post-content h3 {
     font-size: 1.6em;
@@ -177,4 +180,78 @@
 
 .delete-button:hover {
     background-color: #cc2929;
+}
+
+
+/* Ensure the comments section doesn't push the image down */
+.post-comments-dashboard {
+    margin-top: 15px;
+    background-color: #2e2e2e;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%; /* Make sure it spans the entire content area */
+}
+
+
+/* Styling for comments toggle button */
+.comments-toggle-dashboard {
+    cursor: pointer;
+    color: #007bff;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #2e2e2e;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+    margin: 5px 0;
+}
+
+.comments-toggle-dashboard:hover {
+    background-color: #444;
+}
+
+/* Divider for separating comments */
+.comment-divider-dashboard {
+    border: 0;
+    border-top: 1px solid #444;
+    margin: 5px 0;
+}
+
+.comments-list-dashboard {
+    margin-top: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.comments-list-dashboard.expanded {
+    max-height: 1000px;
+}
+
+
+/* Styling for individual comments */
+.comment-dashboard {
+    padding: 8px 12px;
+    background-color: #333;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    color: #dcdcdc;
+    font-size: 0.95em;
+}
+
+/* Button for showing more comments */
+.show-more-comments-dashboard {
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.show-more-comments-dashboard:hover {
+    background-color: #007bff;
 }
