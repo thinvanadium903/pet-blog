@@ -6,6 +6,7 @@ import {doc, collection, getDoc, runTransaction} from 'firebase/firestore';
 import {useAuth} from '../../context/AuthContext';
 import {toast} from 'react-toastify'; // Import toast
 import '../stylesheets/Submission.css';
+import Comment from './Comment';
 
 function Submission({id, name, imageUrl, description, userName, createdAt}) {
     const {currentUser} = useAuth();
@@ -96,6 +97,12 @@ function Submission({id, name, imageUrl, description, userName, createdAt}) {
         }
     };
 
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp * 1000);
+        return `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
+    };
+
+
     const divStyle = {
         backgroundImage: `url(${imageUrl})`,
     };
@@ -109,20 +116,16 @@ function Submission({id, name, imageUrl, description, userName, createdAt}) {
                 </div>
                 <p>{description}</p>
                 {userName && <i id="source">Created by {userName}</i>}
-                {createdAt && (
-                    <p>
-                        Posted on: {new Date(createdAt.seconds * 1000).toLocaleDateString()} at{' '}
-                        {new Date(createdAt.seconds * 1000).toLocaleTimeString()}
-                        <button
-                            className={`like-icon ${liked ? 'liked' : 'unliked'}`}
-                            onClick={handleLike}
-                            disabled={loading} // Disable button while loading
-                        >
-                            {liked ? '❤️' : '🩶'} {likes}
-                        </button>
-                    </p>
-                )}
+                {createdAt && <p>Posted on: {formatDate(createdAt.seconds)}</p>}
+                <button
+                    className={`like-icon ${liked ? 'liked' : 'unliked'}`}
+                    onClick={handleLike}
+                    disabled={loading}
+                >
+                    {liked ? '❤️' : '🩶'} {likes}
+                </button>
             </div>
+            <Comment postId={id}/>
         </div>
     );
 }

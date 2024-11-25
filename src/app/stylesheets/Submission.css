@@ -1,9 +1,12 @@
 .submission-whole {
-    width: 40vw;
-    /*height: fit-content;*/
-    border-radius: 2vw 2vw 2vw 2vw;
-    transition: transform .25s;
-    border: .65px solid black;
+    width: 90%;
+    max-width: 550px;
+    /*margin: 10px auto;*/
+    margin: 20px auto; /* Add spacing between cards */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 12px 12px 0px 0px; /* Adjust for smoother corners */
+    transition: transform 0.25s, box-shadow 0.25s;
+    border: 1px solid black;
     position: relative;
 }
 
@@ -24,158 +27,78 @@
 
 .image {
     background-size: cover;
-    background-position-x: center;
-    background-position-y: 40%;
-    justify-self: center;
-    align-self: center;
-    height: 32vh;
-    width: 40vw;
-    border-radius: 2vw 2vw 0 0;
+    background-position: center;
+    height: 200px;
+    width: 100%;
+    border-radius: 15px 15px 0 0;
+    object-fit: cover;
 }
 
-/*.submission-whole:hover {*/
-/*    transform: scale(1.05);*/
-/*}*/
+.submission-whole:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
 
 .submission-preview {
     display: flex;
     flex-direction: column;
-    width: 40vw;
-    height: fit-content;
-    padding-bottom: 1vw;
-    margin-left: 2vw;
+    padding: 15px;
+    gap: 10px;
 }
 
 .submission-name h2 {
-    transition: transform .25s;
-    text-decoration: underline;
+    font-size: clamp(1.2rem, 2vw, 2rem);
     font-weight: 650;
     color: #222222;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding-right: 3vw;
+    text-decoration: underline;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .submission-preview p {
     font-weight: 350;
     color: #222222;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding-bottom: 1vw;
-    padding-right: 3vw;
-    height: fit-content;
 }
 
 #source {
     color: #222222;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding-bottom: 0.2vw;
-    padding-right: 3vw;
-    height: fit-content;
     font-weight: 600;
 }
 
 @media (prefers-color-scheme: dark) {
     .submission-whole {
-        border: .65px solid white;
+        background-color: #1e1e1e;
+        border: 1px solid #555;
+    }
+
+    .submission-preview {
+        background-color: #2a2a2a;
+        color: #ddd;
     }
 
     .submission-name h2 {
-        color: #DDDDDD;
+        color: #fff;
     }
 
-    .submission-preview p {
-        color: #DDDDDD;
-    }
-
-    #source {
-        color: #DDDDDD;
+    #source, .submission-preview p {
+        color: #ddd;
     }
 }
 
-@media (max-width: 700px) {
-    .submission-whole {
-        width: 80vw;
-    }
-
-    .submission-preview {
-        width: 80vw;
-    }
-
-    .image {
-        width: 80vw;
-    }
-}
-
-@media (min-width: 1100px) {
-    .submission-whole {
-        width: 30vw;
-    }
-
-    .submission-preview {
-        width: 29.5vw;
-    }
-
-    .image {
-        width: 30vw;
-    }
-}
-
-button {
-    /*background-color: #ee3332;*/
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #cc2929;
-}
-
-/* Styling for the like button */
 .like-icon {
-    position: absolute;
-    bottom: 48px;
-    right: 20px;
+    margin-top: 10px;
     cursor: pointer;
-    font-size: 32px;
+    font-size: 24px;
     transition: transform 0.2s ease, color 0.2s ease;
-    color: #cccccc; /* Default gray for unliked state */
-    display: flex;
-    align-items: center; /* Align icon and text vertically */
-    background: none;
-    border: none;
 }
 
-/* Hover and animation effects */
 .like-icon:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
+    color: #e63946;
 }
 
-/* Liked state */
-.like-icon.liked {
-    color: #e63946; /* Bright red for liked state */
-    animation: liked-animation 0.3s ease;
+.like-icon:active {
+    transform: scale(1);
+    transition: transform 0.1s;
 }
-
-/* Unliked state */
-.like-icon.unliked {
-    color: #cccccc; /* Light gray for unliked state */
-}
-
-/* Heart "pop" animation when liked */
-@keyframes liked-animation {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.5);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
