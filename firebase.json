@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "uga-pet-blog-3deb8",
+    "site": "uga-pet-blog",
     "public": "out",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
