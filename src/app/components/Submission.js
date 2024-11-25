@@ -6,40 +6,37 @@ import {doc, collection, getDoc, runTransaction} from 'firebase/firestore';
 import {useAuth} from '../../context/AuthContext';
 import {toast} from 'react-toastify'; // Import toast
 import '../stylesheets/Submission.css';
-import Comment from './Comment';
+import CommentModal from './CommentModal';
 
 function Submission({id, name, imageUrl, description, userName, createdAt}) {
     const {currentUser} = useAuth();
     const [likes, setLikes] = useState(0);
     const [liked, setLiked] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [fadeIn, setFadeIn] = useState(false); // State for animation
+    const [fadeIn, setFadeIn] = useState(false);
+    const [commentCount, setCommentCount] = useState(0);
+    const [isCommentModalOpen, setCommentModalOpen] = useState(false);
 
     useEffect(() => {
         // Trigger fade-in animation on mount
         setFadeIn(true);
 
-        const fetchLikes = async () => {
+        const fetchLikesAndComments = async () => {
             try {
                 // Get the total like count
                 const postDocRef = doc(db, 'posts', id);
                 const postSnap = await getDoc(postDocRef);
+
                 if (postSnap.exists()) {
                     setLikes(postSnap.data().likeCount || 0);
-                }
-
-                // Check if the user has liked this post (if logged in)
-                if (currentUser) {
-                    const likeDocRef = doc(collection(db, 'posts', id, 'likes'), currentUser.uid);
-                    const likeSnap = await getDoc(likeDocRef);
-                    setLiked(likeSnap.exists());
+                    setCommentCount(postSnap.data().commentCount || 0);
                 }
             } catch (error) {
-                console.error('Error fetching like data:', error);
+                console.error('Error fetching post data:', error);
             }
         };
 
-        fetchLikes();
+        fetchLikesAndComments();
     }, [id, currentUser]);
 
     const handleLikeClick = () => {
@@ -102,9 +99,13 @@ function Submission({id, name, imageUrl, description, userName, createdAt}) {
         return `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
     };
 
-
     const divStyle = {
         backgroundImage: `url(${imageUrl})`,
+    };
+
+    // Function to toggle modal visibility
+    const toggleCommentModal = () => {
+        setCommentModalOpen((prev) => !prev);
     };
 
     return (
@@ -124,8 +125,17 @@ function Submission({id, name, imageUrl, description, userName, createdAt}) {
                 >
                     {liked ? '❤️' : '🩶'} {likes}
                 </button>
+                <button onClick={toggleCommentModal}>
+                    💬 {commentCount} Comments
+                </button>
             </div>
-            <Comment postId={id}/>
+            <CommentModal
+                isOpen={isCommentModalOpen}
+                onRequestClose={() => setCommentModalOpen(false)}
+                postId={id} // Ensure this is correctly passed for fetching comments
+                className="comment-modal-wrapper" // Added for scoping
+                overlayClassName="comment-modal-wrapper" // Ensure scoped overlay
+            />
         </div>
     );
 }
