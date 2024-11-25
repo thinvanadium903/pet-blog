@@ -9,7 +9,7 @@ import Link from "next/link";
 import {db} from "../../firebase";
 import {collection, addDoc} from "firebase/firestore";
 import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
-import heic2any from "heic2any";
+
 
 export default function CreatePost() {
     const {currentUser, loading: authLoading} = useAuth();
@@ -35,7 +35,8 @@ export default function CreatePost() {
 
         if (file.type === "image/heic" || file.name.endsWith(".HEIC")) {
             try {
-                // Convert HEIC to JPEG
+                // Dynamically import heic2any inside the function
+                const heic2any = (await import("heic2any")).default;
                 const convertedBlob = await heic2any({
                     blob: file,
                     toType: "image/jpeg",
@@ -80,6 +81,7 @@ export default function CreatePost() {
             setIsProcessing(false); // Reset processing state
         }
     };
+
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
