@@ -102,3 +102,36 @@
     transform: scale(1);
     transition: transform 0.1s;
 }
+
+
+.comments-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between icon and text */
+    background-color: #007bff; /* Primary color */
+    color: #fff; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for a button-like appearance */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Make text bold */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Add subtle shadow */
+}
+
+.comments-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slight enlargement on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow */
+}
+
+.comments-button:active {
+    transform: scale(0.95); /* Reduce size on click */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow on active */
+}
+
+.comments-button .icon {
+    font-size: 20px; /* Adjust icon size */
+}

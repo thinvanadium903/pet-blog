@@ -87,39 +87,53 @@ function CommentModal({isOpen, onRequestClose, postId}) {
         <Modal
             isOpen={isOpen}
             onRequestClose={onRequestClose}
-            className="comment-modal-wrapper comment-modal" // Scoped class
-            overlayClassName="comment-modal-wrapper comment-modal-overlay" // Scoped overlay class
+            className="comment-modal-wrapper comment-modal"
+            overlayClassName="comment-modal-overlay"
             ariaHideApp={false}
         >
-            <div className="modal-content">
-                <button className="close-button" onClick={onRequestClose}>
-                    ✖
-                </button>
-                <h3>Comments</h3>
-                {loading ? (
-                    <p>Loading comments...</p>
-                ) : (
-                    <div className="comments-list">
-                        {comments.map((comment, index) => (
-                            <div key={index} className="comment-item">
-                                <span className="comment-username">{comment.userName}</span>
-                                <span className="comment-text">{comment.text}</span>
-                            </div>
-                        ))}
-                        {comments.length === 0 && <p>No comments yet.</p>}
-                    </div>
-                )}
-                <input
-                    type="text"
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Add a comment"
-                />
-                <button onClick={handleAddComment} disabled={!newComment.trim() || submitting}>
-                    {submitting ? 'Submitting...' : 'Submit'}
-                </button>
+            <div className="comment-modal-wrapper">
+                <div className="comment-modal-content">
+                    <button className="comment-close-button" onClick={onRequestClose}>
+                        ✖
+                    </button>
+                    <h3 className="comment-header">Comments</h3>
+                    {loading ? (
+                        <p>Loading comments...</p>
+                    ) : (
+                        <div className="comment-list">
+                            {comments.map((comment, index) => (
+                                <div key={index} className="comment-item">
+                                    <span className="comment-username">{comment.userName}</span>
+                                    <span className="comment-text">{comment.text}</span>
+                                </div>
+                            ))}
+                            {comments.length === 0 && <p>No comments yet.</p>}
+                        </div>
+                    )}
+                    {currentUser ? (
+                        <>
+                            <input
+                                type="text"
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                placeholder="Add a comment"
+                                className="comment-input"
+                            />
+                            <button
+                                onClick={handleAddComment}
+                                disabled={!newComment.trim() || submitting}
+                                className="comment-submit-button"
+                            >
+                                {submitting ? 'Submitting...' : 'Submit'}
+                            </button>
+                        </>
+                    ) : (
+                        <p className="comment-login-message">Log in to add a comment.</p>
+                    )}
+                </div>
             </div>
         </Modal>
+
 
     );
 }

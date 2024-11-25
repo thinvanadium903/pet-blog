@@ -26,6 +26,51 @@
     overflow: hidden;
 }
 
+/* Modal Content Container */
+.comment-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    height: 100%;
+}
+
+/* Scrollable Comments List */
+.comment-modal .comment-list {
+    flex-grow: 1; /* Allow the list to expand */
+    max-height: 400px; /* Restrict height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin-bottom: 20px;
+    padding-right: 10px; /* Prevent cutoff due to scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #444 #2c2c2c;
+}
+
+.comment-modal .comment-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.comment-modal .comment-list::-webkit-scrollbar-thumb {
+    background-color: #444; /* Thumb color */
+    border-radius: 4px;
+}
+
+.comment-modal .comment-list::-webkit-scrollbar-track {
+    background: #2c2c2c;
+}
+
+/* Adjust Comment Items */
+.comment-modal .comment-item {
+    display: flex;
+    flex-direction: column;
+    background: #1f1f1f; /* Comment background */
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
 /* Fade-in Animation */
 @keyframes fadeIn {
     from {
@@ -39,7 +84,7 @@
 }
 
 /* Close Button */
-.close-button {
+.comment-modal .close-button {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -51,13 +96,13 @@
     transition: transform 0.2s;
 }
 
-.close-button:hover {
+.comment-modal .close-button:hover {
     transform: scale(1.2);
     color: #ff4b4b; /* Red highlight for hover */
 }
 
 /* Modal Header */
-h3 {
+.comment-modal h3 {
     margin-top: 0;
     text-align: center;
     font-size: 20px;
@@ -67,7 +112,7 @@ h3 {
 }
 
 /* Comments Section */
-.comments-list {
+.comment-modal .comments-list {
     max-height: 300px;
     overflow-y: auto;
     margin-bottom: 20px;
@@ -76,21 +121,21 @@ h3 {
     scrollbar-color: #444 #2c2c2c;
 }
 
-.comments-list::-webkit-scrollbar {
+.comment-modal .comments-list::-webkit-scrollbar {
     width: 8px;
 }
 
-.comments-list::-webkit-scrollbar-thumb {
+.comment-modal .comments-list::-webkit-scrollbar-thumb {
     background-color: #444; /* Thumb color */
     border-radius: 4px;
 }
 
-.comments-list::-webkit-scrollbar-track {
+.comment-modal .comments-list::-webkit-scrollbar-track {
     background: #2c2c2c;
 }
 
 /* Individual Comment */
-.comment-item {
+.comment-modal .comment-item {
     display: flex;
     flex-direction: column;
     background: #1f1f1f; /* Comment background */
@@ -100,20 +145,20 @@ h3 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.comment-username {
+.comment-modal .comment-username {
     font-weight: bold;
     color: #007bff; /* Blue username for consistency */
     margin-bottom: 5px;
 }
 
-.comment-text {
+.comment-modal .comment-text {
     font-size: 15px;
     line-height: 1.5;
     color: #ddd;
 }
 
 /* Input Section */
-.comment-modal input {
+.comment-modal .comment-input {
     width: 90%;
     padding: 12px;
     margin-bottom: 10px;
@@ -126,14 +171,14 @@ h3 {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.comment-modal input:focus {
+.comment-modal .comment-input:focus {
     border-color: #007bff;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
     outline: none;
 }
 
 /* Submit Button */
-.comment-modal button {
+.comment-modal .comment-submit-button {
     background-color: #007bff;
     color: #fff;
     align-content: center;
@@ -146,12 +191,43 @@ h3 {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.comment-modal button:disabled {
+.comment-modal .comment-submit-button:disabled {
+    background-color: #444;
+    cursor: not-allowed;
+}
+.comment-modal .comment-submit-button:disabled:hover {
     background-color: #444;
     cursor: not-allowed;
 }
 
-.comment-modal button:hover {
+.comment-modal .comment-submit-button:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+}
+
+
+/* Close Button */
+.comment-modal .comment-close-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.1); /* Subtle background for better visibility */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for contrast */
+    border-radius: 50%; /* Circular button */
+    width: 32px; /* Consistent size */
+    height: 32px; /* Consistent size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.comment-modal .comment-close-button:hover {
+    transform: scale(1.2); /* Slight enlargement on hover */
+    background-color: #ff4b4b; /* Highlighted red background */
+    color: #fff; /* Keep text white */
 }

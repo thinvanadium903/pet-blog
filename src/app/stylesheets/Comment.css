@@ -1,169 +1,169 @@
-/* Scoped Container */
-.comment-section-container {
-    margin-top: 15px;
-    border-radius: 8px;
-    background-color: #2c2c2c;
-    overflow: hidden; /* Ensure content stays within bounds */
-    position: relative;
-}
+/*!* Scoped Container *!*/
+/*.comment-section-container {*/
+/*    margin-top: 15px;*/
+/*    border-radius: 8px;*/
+/*    background-color: #2c2c2c;*/
+/*    overflow: hidden; !* Ensure content stays within bounds *!*/
+/*    position: relative;*/
+/*}*/
 
-/* Comment Section */
-.comment-section {
-    padding: 15px;
-    background-color: #2c2c2c;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* Subtle inset shadow */
-    border-radius: 8px;
-}
+/*!* Comment Section *!*/
+/*.comment-section {*/
+/*    padding: 15px;*/
+/*    background-color: #2c2c2c;*/
+/*    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); !* Subtle inset shadow *!*/
+/*    border-radius: 8px;*/
+/*}*/
 
-.comment-section-container .comment-section {
-    display: block; /* Prevent interference between comments */
-}
+/*.comment-section-container .comment-section {*/
+/*    display: block; !* Prevent interference between comments *!*/
+/*}*/
 
-/* Comments Placeholder (No Comments) */
-.comment-section.no-comments {
-    display: flex;
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
-    flex-direction: column;
-    min-height: 150px;
-    text-align: center;
-}
+/*!* Comments Placeholder (No Comments) *!*/
+/*.comment-section.no-comments {*/
+/*    display: flex;*/
+/*    justify-content: center; !* Horizontally center *!*/
+/*    align-items: center; !* Vertically center *!*/
+/*    flex-direction: column;*/
+/*    min-height: 150px;*/
+/*    text-align: center;*/
+/*}*/
 
-.comment-placeholder {
-    font-size: 14px;
-    color: #aaa;
-}
+/*.comment-placeholder {*/
+/*    font-size: 14px;*/
+/*    color: #aaa;*/
+/*}*/
 
-/* Loading Placeholder */
-.comment-loading {
-    text-align: center;
-    font-size: 14px;
-    color: #aaa;
-}
+/*!* Loading Placeholder *!*/
+/*.comment-loading {*/
+/*    text-align: center;*/
+/*    font-size: 14px;*/
+/*    color: #aaa;*/
+/*}*/
 
-/* Individual Comment Bubble */
-.comment {
-    margin-bottom: 15px;
-    padding: 12px 15px;
-    background-color: #f5f5f5;
-    border-radius: 12px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
-    max-width: 100%;
-    color: #333;
-}
+/*!* Individual Comment Bubble *!*/
+/*.comment {*/
+/*    margin-bottom: 15px;*/
+/*    padding: 12px 15px;*/
+/*    background-color: #f5f5f5;*/
+/*    border-radius: 12px;*/
+/*    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);*/
+/*    max-width: 100%;*/
+/*    color: #333;*/
+/*}*/
 
-.comment p {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.6;
-}
+/*.comment p {*/
+/*    margin: 0;*/
+/*    font-size: 14px;*/
+/*    line-height: 1.6;*/
+/*}*/
 
-/* User Name Styling */
-.comment strong {
-    font-size: 14px;
-    color: #007bff;
-    font-weight: bold;
-}
+/*!* User Name Styling *!*/
+/*.comment strong {*/
+/*    font-size: 14px;*/
+/*    color: #007bff;*/
+/*    font-weight: bold;*/
+/*}*/
 
-/* Input Container */
-.comment-input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-}
+/*!* Input Container *!*/
+/*.comment-input-container {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    gap: 10px;*/
+/*    margin-top: 20px;*/
+/*}*/
 
-/* Input Field */
-.comment-input {
-    width: 90%;
-    padding: 10px 15px;
-    margin-top: 15px;
-    border-radius: 6px;
-    border: 1px solid #bbb;
-    outline: none;
-    font-size: 14px;
-    background-color: #fff;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
+/*!* Input Field *!*/
+/*.comment-input {*/
+/*    width: 90%;*/
+/*    padding: 10px 15px;*/
+/*    margin-top: 15px;*/
+/*    border-radius: 6px;*/
+/*    border: 1px solid #bbb;*/
+/*    outline: none;*/
+/*    font-size: 14px;*/
+/*    background-color: #fff;*/
+/*    transition: border-color 0.3s ease, box-shadow 0.3s ease;*/
+/*}*/
 
-.comment-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
-}
+/*.comment-input:focus {*/
+/*    border-color: #007bff;*/
+/*    box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);*/
+/*}*/
 
-/* Submit Button */
-.comment-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    align-self: flex-end; /* Align the button to the right */
-}
+/*!* Submit Button *!*/
+/*.comment-button {*/
+/*    padding: 10px 20px;*/
+/*    background-color: #007bff;*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    border-radius: 6px;*/
+/*    cursor: pointer;*/
+/*    font-size: 14px;*/
+/*    transition: background-color 0.3s ease, transform 0.2s ease;*/
+/*    align-self: flex-end; !* Align the button to the right *!*/
+/*}*/
 
-.comment-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.03);
-}
+/*.comment-button:hover {*/
+/*    background-color: #0056b3;*/
+/*    transform: scale(1.03);*/
+/*}*/
 
-.comment-button:disabled {
-    background-color: #ddd;
-    color: #666;
-    cursor: not-allowed;
-}
+/*.comment-button:disabled {*/
+/*    background-color: #ddd;*/
+/*    color: #666;*/
+/*    cursor: not-allowed;*/
+/*}*/
 
-/* Responsive Adjustments */
-@media (max-width: 700px) {
-    .comment-section {
-        padding: 10px;
-    }
+/*!* Responsive Adjustments *!*/
+/*@media (max-width: 700px) {*/
+/*    .comment-section {*/
+/*        padding: 10px;*/
+/*    }*/
 
-    .comment-input-container {
-        gap: 5px;
-    }
+/*    .comment-input-container {*/
+/*        gap: 5px;*/
+/*    }*/
 
-    .comment-button {
-        width: 100%;
-    }
-}
+/*    .comment-button {*/
+/*        width: 100%;*/
+/*    }*/
+/*}*/
 
-/* Dark Mode Adjustments */
-@media (prefers-color-scheme: dark) {
-    .comment-section {
-        background-color: #1f1f1f;
-        border-top: 1px solid #444;
-    }
+/*!* Dark Mode Adjustments *!*/
+/*@media (prefers-color-scheme: dark) {*/
+/*    .comment-section {*/
+/*        background-color: #1f1f1f;*/
+/*        border-top: 1px solid #444;*/
+/*    }*/
 
-    .comment {
-        background-color: #292929;
-        color: #ddd;
-        box-shadow: 0px 2px 6px rgba(255, 255, 255, 0.05);
-    }
+/*    .comment {*/
+/*        background-color: #292929;*/
+/*        color: #ddd;*/
+/*        box-shadow: 0px 2px 6px rgba(255, 255, 255, 0.05);*/
+/*    }*/
 
-    .comment strong {
-        color: #59a5f0;
-    }
+/*    .comment strong {*/
+/*        color: #59a5f0;*/
+/*    }*/
 
-    .comment-input {
-        background-color: #333;
-        color: #fff;
-        border: 1px solid #555;
-    }
+/*    .comment-input {*/
+/*        background-color: #333;*/
+/*        color: #fff;*/
+/*        border: 1px solid #555;*/
+/*    }*/
 
-    .comment-input:focus {
-        border-color: #59a5f0;
-        box-shadow: 0 0 6px rgba(89, 165, 240, 0.5);
-    }
+/*    .comment-input:focus {*/
+/*        border-color: #59a5f0;*/
+/*        box-shadow: 0 0 6px rgba(89, 165, 240, 0.5);*/
+/*    }*/
 
-    .comment-button {
-        background-color: #0056b3;
-    }
+/*    .comment-button {*/
+/*        background-color: #0056b3;*/
+/*    }*/
 
-    .comment-button:disabled {
-        background-color: #444;
-        color: #888;
-    }
-}
+/*    .comment-button:disabled {*/
+/*        background-color: #444;*/
+/*        color: #888;*/
+/*    }*/
+/*}*/

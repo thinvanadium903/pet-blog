@@ -2,7 +2,7 @@
 
 import {useState, useEffect} from 'react';
 import {db} from '../../firebase';
-import {doc, collection, getDoc, runTransaction} from 'firebase/firestore';
+import {doc, collection, getDoc, runTransaction, onSnapshot} from 'firebase/firestore';
 import {useAuth} from '../../context/AuthContext';
 import {toast} from 'react-toastify'; // Import toast
 import '../stylesheets/Submission.css';
@@ -17,27 +17,33 @@ function Submission({id, name, imageUrl, description, userName, createdAt}) {
     const [commentCount, setCommentCount] = useState(0);
     const [isCommentModalOpen, setCommentModalOpen] = useState(false);
 
+    // Fetch likes and set them in real time
     useEffect(() => {
-        // Trigger fade-in animation on mount
-        setFadeIn(true);
+        setFadeIn(true); // Trigger fade-in animation
 
-        const fetchLikesAndComments = async () => {
-            try {
-                // Get the total like count
-                const postDocRef = doc(db, 'posts', id);
-                const postSnap = await getDoc(postDocRef);
+        const postDocRef = doc(db, 'posts', id);
 
-                if (postSnap.exists()) {
-                    setLikes(postSnap.data().likeCount || 0);
-                    setCommentCount(postSnap.data().commentCount || 0);
-                }
-            } catch (error) {
-                console.error('Error fetching post data:', error);
+        // Listen to real-time updates for the post's likeCount field
+        const unsubscribe = onSnapshot(postDocRef, (docSnapshot) => {
+            if (docSnapshot.exists()) {
+                setLikes(docSnapshot.data().likeCount || 0); // Update the likes in real-time
+            } else {
+                console.error('Post does not exist!');
             }
-        };
+        });
 
-        fetchLikesAndComments();
-    }, [id, currentUser]);
+        return () => unsubscribe(); // Clean up the listener on unmount
+    }, [id]);
+
+    // Fetch comments count and update it in real-time
+    useEffect(() => {
+        const commentsCollectionRef = collection(db, 'posts', id, 'comments');
+        const unsubscribe = onSnapshot(commentsCollectionRef, (snapshot) => {
+            setCommentCount(snapshot.size); // Update comment count based on the number of documents
+        });
+
+        return () => unsubscribe(); // Clean up the listener when the component unmounts
+    }, [id]);
 
     const handleLikeClick = () => {
         toast.warn('Please log in or sign up to like posts!', {
@@ -125,16 +131,17 @@ function Submission({id, name, imageUrl, description, userName, createdAt}) {
                 >
                     {liked ? '❤️' : '🩶'} {likes}
                 </button>
-                <button onClick={toggleCommentModal}>
-                    💬 {commentCount} Comments
+                <button className="comments-button" onClick={toggleCommentModal}>
+                    <span className="icon">💬</span>
+                    <span>{commentCount} Comments</span>
                 </button>
             </div>
             <CommentModal
                 isOpen={isCommentModalOpen}
                 onRequestClose={() => setCommentModalOpen(false)}
-                postId={id} // Ensure this is correctly passed for fetching comments
-                className="comment-modal-wrapper" // Added for scoping
-                overlayClassName="comment-modal-wrapper" // Ensure scoped overlay
+                postId={id}
+                className="comment-modal-wrapper"
+                overlayClassName="comment-modal-wrapper"
             />
         </div>
     );
