@@ -35,6 +35,20 @@ function Submission({id, name, imageUrl, description, userName, createdAt}) {
         return () => unsubscribe(); // Clean up the listener on unmount
     }, [id]);
 
+    useEffect(() => {
+        const fetchLikeStatus = async () => {
+            if (currentUser) {
+                const likeDocRef = doc(collection(db, 'posts', id, 'likes'), currentUser.uid);
+                const docSnapshot = await getDoc(likeDocRef);
+                if (docSnapshot.exists()) {
+                    setLiked(true);
+                }
+            }
+        };
+        fetchLikeStatus();
+    }, [currentUser, id]);
+
+
     // Fetch comments count and update it in real-time
     useEffect(() => {
         const commentsCollectionRef = collection(db, 'posts', id, 'comments');
@@ -123,17 +137,26 @@ function Submission({id, name, imageUrl, description, userName, createdAt}) {
                 </div>
                 <p>{description}</p>
                 {userName && <i id="source">Created by {userName}</i>}
-                {createdAt && <p>Posted on: {formatDate(createdAt.seconds)}</p>}
-                <button
-                    className={`like-icon ${liked ? 'liked' : 'unliked'}`}
-                    onClick={handleLike}
-                    disabled={loading}
-                >
-                    {liked ? '❤️' : '🩶'} {likes}
-                </button>
+                <div className="submission-meta">
+                    {createdAt && (
+                        <p className="posted-on">Posted on: {formatDate(createdAt.seconds)}</p>
+                    )}
+                    <button
+                        className={`like-icon ${liked ? 'liked' : 'unliked'}`}
+                        onClick={handleLike}
+                        disabled={loading}
+                        aria-label={liked ? 'Unlike this post' : 'Like this post'}
+                        title={liked ? 'Unlike this post' : 'Like this post'}
+                    >
+                        <span className="like-heart">{liked ? '❤️' : '🩶'}</span>
+                        <span className="like-count">{likes}</span>
+                    </button>
+                </div>
+
                 <button className="comments-button" onClick={toggleCommentModal}>
                     <span className="icon">💬</span>
                     <span>{commentCount} Comments</span>
+                    <div className="tooltip">Click to post your own comment! </div>
                 </button>
             </div>
             <CommentModal
